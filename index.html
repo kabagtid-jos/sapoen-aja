@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sapoen AjA</title>
+  <style>
+    /* Mereset margin dan padding agar iframe penuh di jendela browser */
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* Mencegah munculnya scrollbar ganda di parent */
+      background-color: #f0f0f0;
+    }
+
+    iframe {
+      position: absolute; /* Menggunakan absolute lebih stabil daripada fixed untuk iframe full-screen */
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%; /* Diubah dari 100vw menjadi 100% */
+      height: 100%; /* Diubah dari 100vh menjadi 100% */
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <iframe 
+    src="https://script.google.com/macros/s/AKfycbznLsk8AR1w1LJalUzUx_tFNTBiNciLI5n4v8Kv5F5Mlkf2pRHj88ddwCvuTzsxyJbaWQ/exec"
+    allowfullscreen="true">
+  </iframe>
+
+</body>
+</html>
