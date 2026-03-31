@@ -2,8 +2,17 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>SAPOEN AJA - Sarpras Abu Zairi Jaya</title>
+  
+  <!-- PWA & iOS Meta Tags -->
+  <link rel="icon" href="https://i.ibb.co.com/vCwGpxww/Desain-tanpa-judul.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://i.ibb.co.com/vCwGpxww/Desain-tanpa-judul.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SAPOEN AJA">
+  <meta name="theme-color" content="#10b981">
+  <link rel="manifest" id="manifest-link">
   
   <!-- CSS & Libraries -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -291,18 +300,12 @@
 
   <!-- ==================== LOGIN SCREEN ==================== -->
   <div id="login-screen" class="bg-slate-900 absolute inset-0 z-40 transition-opacity duration-300 flex overflow-hidden">
-    
-    <!-- Architectural Grid Background (Blueprint aesthetic for Sarana Prasarana) -->
     <div class="absolute inset-0 z-0" style="background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px); background-size: 40px 40px;"></div>
-    
-    <!-- Professional Glowing Accents -->
     <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
     <div class="absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] bg-emerald-600/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
     <div class="w-full h-full flex items-center justify-center p-4 relative z-10">
       <div class="bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-8 max-w-md w-full border-t-4 border-emerald-500 text-center relative overflow-hidden transition-colors duration-300">
-        
-        <!-- Subtle inner corner decoration -->
         <div class="absolute -top-16 -right-16 w-32 h-32 bg-slate-100 dark:bg-slate-700 rounded-full opacity-50"></div>
         
         <img src="https://i.ibb.co.com/1GFHGx5N/Logo-Pondok-Baru-2023.png" alt="Logo Pondok" class="w-24 h-24 object-contain mx-auto mb-4 relative z-10 drop-shadow-md">
@@ -331,13 +334,11 @@
 
   <!-- ==================== MAIN APPLICATION ==================== -->
   <div id="main-app" class="hidden flex-1 h-full w-full bg-slate-50 dark:bg-slate-900 transition-colors duration-300 relative z-0">
-    
-    <!-- Dashboard Background Grid & Glow Layers (Khas Blueprint Sarpras) -->
     <div class="fixed inset-0 z-[-1] pointer-events-none transition-opacity duration-300 dark:opacity-100 opacity-40" style="background-image: linear-gradient(rgba(100, 116, 139, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(100, 116, 139, 0.08) 1px, transparent 1px); background-size: 40px 40px;"></div>
     <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-500/10 dark:bg-blue-600/15 rounded-full blur-[120px] pointer-events-none z-[-1]"></div>
     <div class="fixed bottom-[-10%] right-[-5%] w-[600px] h-[600px] bg-emerald-500/10 dark:bg-emerald-600/15 rounded-full blur-[120px] pointer-events-none z-[-1]"></div>
     
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR PC -->
     <aside class="sidebar w-64 bg-slate-900 text-slate-200 shadow-2xl hidden md:flex flex-col border-r border-slate-800 h-full flex-shrink-0 z-30 transition-all duration-300 relative overflow-hidden">
       <div class="p-6 border-b border-slate-800 text-center relative z-10">
         <img src="https://i.ibb.co.com/1GFHGx5N/Logo-Pondok-Baru-2023.png" alt="Logo Pondok" class="w-16 h-16 object-contain mx-auto mb-2 drop-shadow-md">
@@ -352,6 +353,8 @@
         <button type="button" onclick="navTo('config')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="config" id="sidebar-config-btn"><i class="fas fa-cog w-5"></i> Konfigurasi</button>
       </nav>
       <div class="p-4 border-t border-slate-800 relative z-10">
+        <!-- Tombol Instal App (akan muncul jika didukung) -->
+        <button type="button" onclick="triggerPWAInstall()" id="install-pwa-btn-pc" class="w-full hidden items-center justify-center gap-2 px-4 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 rounded-lg transition text-sm font-bold border border-indigo-500/30 mb-2"><i class="fas fa-download"></i> Install App</button>
         <button type="button" onclick="logout()" class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-lg transition text-sm font-bold border border-red-500/30"><i class="fas fa-sign-out-alt"></i> Keluar</button>
       </div>
     </aside>
@@ -374,8 +377,9 @@
 
       <!-- HEADER Mobile -->
       <header class="md:hidden bg-slate-900 border-b-2 border-emerald-500 text-white p-3 shadow-lg sticky top-0 z-20 flex justify-between items-center flex-shrink-0">
-        <div class="flex items-center gap-2"><img src="https://i.ibb.co.com/1GFHGx5N/Logo-Pondok-Baru-2023.png" alt="Logo" class="w-8 h-8 object-contain"><h1 class="font-bold text-lg tracking-wide truncate">SAPOEN <span class="text-emerald-400">AJA</span></h1></div>
+        <div class="flex items-center gap-2"><img src="https://i.ibb.co.com/1GFHGx5N/Logo-Pondok-Baru-2023.png" alt="Logo Pondok" class="w-8 h-8 object-contain"><h1 class="font-bold text-lg tracking-wide truncate">SAPOEN <span class="text-emerald-400">AJA</span></h1></div>
         <div class="flex items-center gap-3 shrink-0">
+          <button type="button" onclick="triggerPWAInstall()" class="text-indigo-400 hover:text-indigo-300 text-lg w-6 h-6 justify-center items-center hidden" id="install-pwa-btn-mobile" title="Install App"><i class="fas fa-download"></i></button>
           <button type="button" onclick="navTo('config')" class="text-slate-300 hover:text-emerald-400 text-lg w-6 h-6 flex justify-center items-center transition-colors" id="header-config-btn" title="Konfigurasi"><i class="fas fa-cog"></i></button>
           <button type="button" onclick="toggleTheme()" class="text-emerald-400 text-lg w-6 h-6 flex justify-center items-center" id="theme-toggle-mobile"><i class="fas fa-moon"></i></button>
           <div class="w-8 h-8 rounded-full border-2 border-emerald-400 shadow-sm overflow-hidden bg-white shrink-0"><img id="header-user-photo-mobile" src="" alt="Admin" class="w-full h-full object-cover"></div>
@@ -383,7 +387,6 @@
         </div>
       </header>
 
-      <!-- TAMBAHAN pb-36 (Padding Bottom Besar) agar konten bisa di-scroll di atas Navigasi Bawah -->
       <div class="p-4 md:p-8 w-full max-w-6xl mx-auto pb-36 md:pb-8 flex-1 relative z-10">
         
         <!-- DASHBOARD -->
@@ -685,7 +688,85 @@
     var offlineSvgPlaceholder = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22300%22%20viewBox%3D%220%200%20300%20300%22%3E%3Crect%20width%3D%22300%22%20height%3D%22300%22%20fill%3D%22%23f3f4f6%22%2F%3E%3Cpath%20d%3D%22M100%20120a20%2020%200%201%200%200-40%2020%2020%200%200%200%200%2040zm-40%2080h180l-60-80-40%2050-30-30-50%2060z%22%20fill%3D%22%23d1d5db%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%22240%22%20font-family%3D%22sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22bold%22%20fill%3D%22%239ca3af%22%20text-anchor%3D%22middle%22%3ETidak%20Ada%20Foto%3C%2Ftext%3E%3C%2Fsvg%3E';
     var currentUser = { id: "", nama: "Admin", role: "Admin", foto: "" };
 
-    document.addEventListener("DOMContentLoaded", function() { initTheme(); initDate(); });
+    // Variabel Prompt Instalasi PWA
+    let deferredPrompt;
+
+    document.addEventListener("DOMContentLoaded", function() { 
+      initTheme(); 
+      initDate(); 
+      initPWA(); 
+    });
+
+    // =========================================================================
+    // FITUR PWA (PROGRESSIVE WEB APP)
+    // =========================================================================
+    function initPWA() {
+      // 1. Buat File Manifest.json Dinamis
+      const manifest = {
+        name: "SAPOEN AJA - Sarpras",
+        short_name: "SAPOEN AJA",
+        start_url: window.location.pathname,
+        display: "standalone",
+        background_color: "#0f172a",
+        theme_color: "#10b981",
+        icons: [
+          { src: "https://i.ibb.co.com/vCwGpxww/Desain-tanpa-judul.png", sizes: "192x192", type: "image/png" },
+          { src: "https://i.ibb.co.com/vCwGpxww/Desain-tanpa-judul.png", sizes: "512x512", type: "image/png" }
+        ]
+      };
+      
+      const stringManifest = JSON.stringify(manifest);
+      const manifestBlob = new Blob([stringManifest], { type: 'application/json' });
+      const manifestURL = URL.createObjectURL(manifestBlob);
+      document.getElementById('manifest-link').setAttribute('href', manifestURL);
+
+      // 2. Buat File Service Worker (sw.js) Dinamis
+      if ('serviceWorker' in navigator) {
+        const swCode = `
+          self.addEventListener('install', e => { self.skipWaiting(); });
+          self.addEventListener('activate', e => { e.waitUntil(clients.claim()); });
+          self.addEventListener('fetch', e => { }); // Dummy fetch (biarkan default untuk PWA dasar)
+        `;
+        const swBlob = new Blob([swCode], { type: 'application/javascript' });
+        const swUrl = URL.createObjectURL(swBlob);
+        
+        navigator.serviceWorker.register(swUrl).then(() => {
+            console.log('PWA Service Worker siap.');
+        }).catch((err) => {
+            console.log('SW Registration failed, probably due to iframe context.', err);
+        });
+      }
+
+      // 3. Deteksi Dukungan Instalasi PWA (Terutama untuk Android/Chrome)
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // Munculkan Tombol Install
+        const btnPc = document.getElementById('install-pwa-btn-pc');
+        const btnMobile = document.getElementById('install-pwa-btn-mobile');
+        if(btnPc) { btnPc.classList.remove('hidden'); btnPc.classList.add('flex'); }
+        if(btnMobile) { btnMobile.classList.remove('hidden'); btnMobile.classList.add('flex'); }
+      });
+    }
+
+    // Fungsi Ketika Tombol Install Ditekan
+    window.triggerPWAInstall = function() {
+        if (!deferredPrompt) {
+            showToast("Gunakan opsi 'Add to Home Screen' atau 'Instal Aplikasi' pada menu pengaturan browser Anda.");
+            return;
+        }
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                const btnPc = document.getElementById('install-pwa-btn-pc');
+                const btnMobile = document.getElementById('install-pwa-btn-mobile');
+                if(btnPc) { btnPc.classList.add('hidden'); btnPc.classList.remove('flex'); }
+                if(btnMobile) { btnMobile.classList.add('hidden'); btnMobile.classList.remove('flex'); }
+            }
+            deferredPrompt = null;
+        });
+    };
+    // =========================================================================
 
     function initTheme() {
       if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
