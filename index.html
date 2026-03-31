@@ -663,7 +663,7 @@
     // =========================================================================
     // URL WEB APP APPS SCRIPT
     // =========================================================================
-    var GAS_API_URL = "https://script.google.com/macros/s/AKfycbwN9oxN2f5lyeEhzWjXud80o0lCAmgQr-3qKkw90vbbwaoNfhVBGyFXkXpTlRx3mmASAg/exec";
+    var GAS_API_URL = "https://script.google.com/macros/s/AKfycbyiaURnjCPx6R8DGr04FOM0BVwxh_wryznPfF1-66IFdhbmiuL2qWeJz96pK7uQlyDz8g/exec";
 
     function gasRequest(action, dataPayload = null) {
       return new Promise(function(resolve, reject) {
@@ -859,7 +859,7 @@
             let jenis = (item['Jenis'] || "").toString().toLowerCase();
             let nilai = parseFloat(item['Nilai']) || 0;
 
-            stats.nilaiTotal += (nilai * jumlah);
+            stats.nilaiTotal += nilai; // PERBAIKAN: Menjumlahkan nilai langsung tanpa dikali jumlah stok
 
             if (jenis === "prasarana") stats.prasarana += jumlah; else stats.sarana += jumlah;
             if (kondisi === "baik") stats.baik += jumlah; else if (kondisi === "rusak") stats.rusak += jumlah;
