@@ -35,8 +35,8 @@
     html.dark body { background-color: #0f172a; } 
     
     .view-section { display: none; }
-    .view-section.active { display: block; animation: fadeIn 0.3s ease-out forwards; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .view-section.active { display: block; animation: fadeIn 0.2s ease-out forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
     #loader { backdrop-filter: blur(5px); transition: opacity 0.2s ease; }
     .spinner { border: 4px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top: 4px solid #10b981; width: 40px; height: 40px; animation: spin 1s linear infinite; }
@@ -222,7 +222,7 @@
     </div>
   </div>
 
-  <!-- PRINT PDF MODAL & BARCODE MODAL DITETAPKAN SAMA SEPERTI SEBELUMNYA -->
+  <!-- PRINT PDF MODAL -->
   <div id="print-pdf-modal" class="fixed inset-0 bg-slate-900 bg-opacity-60 z-[9980] flex items-center justify-center hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm">
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4 transform scale-95 transition-transform duration-300 border border-slate-100 dark:border-slate-700">
       <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2"><i class="fas fa-file-pdf text-red-500 mr-2"></i>Cetak Laporan PDF</h3>
@@ -342,7 +342,6 @@
         <button type="button" onclick="navTo('dashboard')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800 text-emerald-400 border-l-4 border-emerald-500 transition shadow-md" data-target="dashboard"><i class="fas fa-chart-pie w-5"></i> Dashboard</button>
         <button type="button" onclick="navTo('tambah')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="tambah"><i class="fas fa-plus-circle w-5"></i> Tambah Inventaris</button>
         <button type="button" onclick="navTo('cek')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="cek"><i class="fas fa-qrcode w-5"></i> Cek Sarana</button>
-        <!-- Menu Baru Peminjaman -->
         <button type="button" onclick="navTo('pinjam')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="pinjam"><i class="fas fa-handshake w-5"></i> Peminjaman</button>
         <button type="button" onclick="navTo('rekap')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="rekap"><i class="fas fa-clipboard-list w-5"></i> Rekap Data</button>
         <button type="button" onclick="navTo('config')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="config" id="sidebar-config-btn"><i class="fas fa-cog w-5"></i> Konfigurasi</button>
@@ -372,6 +371,7 @@
       <header class="md:hidden bg-slate-900 border-b-2 border-emerald-500 text-white p-3 shadow-lg sticky top-0 z-20 flex justify-between items-center flex-shrink-0">
         <div class="flex items-center gap-2"><img src="https://i.ibb.co.com/1GFHGx5N/Logo-Pondok-Baru-2023.png" alt="Logo" class="w-8 h-8 object-contain"><h1 class="font-bold text-lg tracking-wide truncate">SAPOEN <span class="text-emerald-400">AJA</span></h1></div>
         <div class="flex items-center gap-3 shrink-0">
+          <button type="button" onclick="navTo('config')" class="text-slate-300 hover:text-emerald-400 text-lg w-6 h-6 flex justify-center items-center transition-colors" id="header-config-btn" title="Konfigurasi"><i class="fas fa-cog"></i></button>
           <button type="button" onclick="toggleTheme()" class="text-emerald-400 text-lg w-6 h-6 flex justify-center items-center" id="theme-toggle-mobile"><i class="fas fa-moon"></i></button>
           <div class="w-8 h-8 rounded-full border-2 border-emerald-400 shadow-sm overflow-hidden bg-white shrink-0"><img id="header-user-photo-mobile" src="" alt="Admin" class="w-full h-full object-cover"></div>
           <button type="button" onclick="logout()" class="text-red-400 hover:text-red-300 text-lg w-6 h-6 flex justify-center items-center ml-1" title="Keluar"><i class="fas fa-sign-out-alt"></i></button>
@@ -387,32 +387,32 @@
             <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-3 sm:p-5 flex items-center gap-2 sm:gap-4 overflow-hidden relative group transition-all hover:shadow-md">
               <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity"><i class="fas fa-boxes text-6xl text-blue-500"></i></div>
               <div class="w-8 h-8 sm:w-12 sm:h-12 rounded-xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center text-sm sm:text-xl shrink-0"><i class="fas fa-boxes"></i></div>
-              <div class="min-w-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Total Sarana</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-sarana">0</h3></div>
+              <div class="min-w-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Total Sarana</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-sarana"><i class="fas fa-spinner fa-spin text-sm"></i></h3></div>
             </div>
             <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-3 sm:p-5 flex items-center gap-2 sm:gap-4 overflow-hidden relative group transition-all hover:shadow-md">
               <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity"><i class="fas fa-building text-6xl text-purple-500"></i></div>
               <div class="w-8 h-8 sm:w-12 sm:h-12 rounded-xl bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center text-sm sm:text-xl shrink-0"><i class="fas fa-building"></i></div>
-              <div class="min-w-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Total Prasarana</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-prasarana">0</h3></div>
+              <div class="min-w-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Total Prasarana</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-prasarana"><i class="fas fa-spinner fa-spin text-sm"></i></h3></div>
             </div>
             <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-3 sm:p-5 flex items-center gap-2 sm:gap-4 overflow-hidden relative group transition-all hover:shadow-md">
               <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity"><i class="fas fa-school text-6xl text-indigo-500"></i></div>
               <div class="w-8 h-8 sm:w-12 sm:h-12 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-sm sm:text-xl shrink-0"><i class="fas fa-school"></i></div>
-              <div class="min-w-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Ruangan/Lokasi</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-lembaga">0</h3></div>
+              <div class="min-w-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Ruangan/Lokasi</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-lembaga"><i class="fas fa-spinner fa-spin text-sm"></i></h3></div>
             </div>
             <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-3 sm:p-5 flex items-center gap-2 sm:gap-4 overflow-hidden relative group transition-all hover:shadow-md">
               <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity"><i class="fas fa-money-bill-wave text-6xl text-amber-500"></i></div>
               <div class="w-8 h-8 sm:w-12 sm:h-12 rounded-xl bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center text-sm sm:text-xl shrink-0"><i class="fas fa-money-bill-wave"></i></div>
-              <div class="min-w-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Total Nilai Aset</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-tanah">Rp 0</h3></div>
+              <div class="min-w-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Total Nilai Aset</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-tanah"><i class="fas fa-spinner fa-spin text-sm"></i></h3></div>
             </div>
             <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-3 sm:p-5 flex items-center gap-2 sm:gap-4 overflow-hidden relative group transition-all hover:shadow-md">
               <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity"><i class="fas fa-check-circle text-6xl text-emerald-500"></i></div>
               <div class="w-8 h-8 sm:w-12 sm:h-12 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm sm:text-xl shrink-0"><i class="fas fa-check-circle"></i></div>
-              <div class="min-w-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Kondisi Baik</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-baik">0</h3></div>
+              <div class="min-w-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Kondisi Baik</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-baik"><i class="fas fa-spinner fa-spin text-sm"></i></h3></div>
             </div>
             <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-3 sm:p-5 flex items-center gap-2 sm:gap-4 overflow-hidden relative group transition-all hover:shadow-md">
               <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity"><i class="fas fa-times-circle text-6xl text-red-500"></i></div>
               <div class="w-8 h-8 sm:w-12 sm:h-12 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 flex items-center justify-center text-sm sm:text-xl shrink-0"><i class="fas fa-times-circle"></i></div>
-              <div class="minw-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Kondisi Rusak</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-rusak">0</h3></div>
+              <div class="minw-0 z-10"><p class="text-[9px] sm:text-xs text-slate-500 font-semibold truncate uppercase">Kondisi Rusak</p><h3 class="text-sm sm:text-lg md:text-2xl font-bold text-slate-800 dark:text-white" id="dash-rusak"><i class="fas fa-spinner fa-spin text-sm"></i></h3></div>
             </div>
           </div>
           <!-- Charts -->
@@ -506,7 +506,7 @@
                   </tr>
                 </thead>
                 <tbody id="pinjam-body" class="text-sm divide-y divide-slate-100 dark:divide-slate-700">
-                  <tr><td colspan="5" class="py-8 text-center text-slate-500">Memuat data...</td></tr>
+                  <tr><td colspan="5" class="py-8 text-center text-slate-500"><i class="fas fa-spinner fa-spin mr-2"></i>Memuat transaksi...</td></tr>
                 </tbody>
               </table>
             </div>
@@ -551,7 +551,7 @@
                   </tr>
                 </thead>
                 <tbody id="rekap-body" class="text-sm divide-y divide-slate-100 dark:divide-slate-700">
-                  <tr><td colspan="8" class="py-8 text-center text-slate-500">Silakan Refresh Data</td></tr>
+                  <tr><td colspan="8" class="py-8 text-center text-slate-500"><i class="fas fa-spinner fa-spin mr-2"></i>Memuat data...</td></tr>
                 </tbody>
               </table>
             </div>
@@ -650,9 +650,6 @@
       <button type="button" onclick="navTo('rekap')" class="nav-btn w-full py-4 text-slate-400 dark:text-slate-500 border-t-2 border-transparent" data-target="rekap">
         <div class="flex flex-col items-center gap-1"><i class="fas fa-clipboard-list text-xl"></i><span class="text-[10px] font-medium leading-none">Rekap</span></div>
       </button>
-      <button type="button" onclick="navTo('config')" class="nav-btn w-full py-4 text-slate-400 dark:text-slate-500 border-t-2 border-transparent" data-target="config">
-        <div class="flex flex-col items-center gap-1"><i class="fas fa-cog text-xl"></i><span class="text-[10px] font-medium leading-none">Config</span></div>
-      </button>
     </nav>
   </div>
 
@@ -674,7 +671,8 @@
     // STATE VARIABLE
     var dashboardChart = null; var trendChart = null;
     var tableData = []; var currentFilteredData = [];
-    var pinjamData = []; // State untuk tabel peminjaman
+    var pinjamData = []; 
+    var hasFetchedRekap = false; var hasFetchedPinjam = false;
     var rekapCurrentPage = 1; var rekapItemsPerPage = 10;
     var cachedDashboardData = null; var html5QrCode = null; 
     var appConfigData = { kategori: [], lokasi: [], emailNotif: "" }; 
@@ -726,6 +724,13 @@
             if(icon) isTarget ? icon.classList.add('text-emerald-500') : icon.classList.remove('text-emerald-500');
         }
       });
+      
+      let headerConfigBtn = document.getElementById('header-config-btn');
+      if (headerConfigBtn) {
+          if (targetId === 'config') { headerConfigBtn.classList.remove('text-slate-300'); headerConfigBtn.classList.add('text-emerald-400'); }
+          else { headerConfigBtn.classList.remove('text-emerald-400'); headerConfigBtn.classList.add('text-slate-300'); }
+      }
+
       document.querySelectorAll('.view-section').forEach(view => {
         if(view.id === 'view-' + targetId) { view.style.display = 'block'; setTimeout(()=>view.classList.add('active'), 10); } 
         else { view.style.display = 'none'; view.classList.remove('active'); }
@@ -734,7 +739,7 @@
       if(targetId !== 'cek') stopScanner();
       if(targetId === 'dashboard') loadDashboard();
       if(targetId === 'rekap') loadRekap(false);
-      if(targetId === 'pinjam') loadPinjam(); // Load pinjam API data
+      if(targetId === 'pinjam') loadPinjam(false); 
     }
 
     function openModal(title, desc, type, defaultVal, confirmCb) {
@@ -758,7 +763,7 @@
         [document.getElementById('header-user-photo'), document.getElementById('header-user-photo-mobile'), document.getElementById('config-profile-photo')].forEach(i => { if(i) { i.onerror = function(){this.src=offlineSvgPlaceholder;}; i.src=pUrl; }});
     }
 
-    // LOGIN
+    // LOGIN & INITIAL LOAD (OPTIMIZATION)
     window.doLogin = function() {
       var pass = document.getElementById('login-password').value; if(!pass) return showToast("Password kosong!");
       showLoader("Memeriksa...");
@@ -776,13 +781,25 @@
             if(ma) { ma.style.display = ''; ma.classList.remove('hidden'); ma.classList.add('flex'); }
             
             navTo('dashboard'); showToast("Selamat datang, " + currentUser.nama + "!");
-            gasRequest('getInventoryList').then(d => { tableData = d; currentFilteredData = d; }).catch(e=>{});
+
+            // [OPTIMASI] Panggil semua API di background agar menu lain tidak perlu loading saat diklik!
+            gasRequest('getInventoryList').then(d => { 
+               tableData = d; currentFilteredData = d; hasFetchedRekap = true;
+               generateDashboardFromTableData(d); // Kalkulasi dashboard secara instan tanpa perlu nembak API lagi
+               renderTable(d); // Siapkan tabel rekap di latar
+            }).catch(e=>{});
+
             gasRequest('getConfigLists').then(d => { appConfigData = d; renderConfigLists(); }).catch(e=>{});
+            
+            // Pre-load data peminjaman agar saat menu diklik langsung muncul
+            gasRequest('getListPeminjaman').then(d => { pinjamData = d; hasFetchedPinjam = true; renderPinjamTable(); }).catch(e=>{});
+
         } else { showToast("Password Salah!"); }
     };
     
     function logout() {
         currentUser = { id: "", nama: "Admin", role: "Admin", foto: "" }; cachedDashboardData = null; tableData = []; pinjamData = []; currentFilteredData = [];
+        hasFetchedRekap = false; hasFetchedPinjam = false;
         document.getElementById('login-password').value = '';
         var ls = document.getElementById('login-screen'), ma = document.getElementById('main-app');
         if(ma) { ma.classList.remove('flex'); ma.classList.add('hidden'); ma.style.display = 'none'; }
@@ -824,6 +841,50 @@
         }
     };
 
+    // DASHBOARD COMPUTATION (Client-side optimization)
+    function generateDashboardFromTableData(data) {
+        let stats = { sarana: 0, prasarana: 0, baik: 0, rusak: 0, nilaiTotal: 0 };
+        let lembagaSet = new Set(), lokasiCount = {}, yearlySarana = {}, yearlyPrasarana = {};
+
+        data.forEach(item => {
+            let jumlah = parseInt(item['Jumlah']) || 0;
+            let kondisi = (item['Kondisi'] || "").toString().toLowerCase();
+            let lokasi = (item['Lokasi'] || "").toString().trim() || "Lainnya";
+            let jenis = (item['Jenis'] || "").toString().toLowerCase();
+            let nilai = parseFloat(item['Nilai']) || 0;
+
+            stats.nilaiTotal += (nilai * jumlah);
+
+            if (jenis === "prasarana") stats.prasarana += jumlah; else stats.sarana += jumlah;
+            if (kondisi === "baik") stats.baik += jumlah; else if (kondisi === "rusak") stats.rusak += jumlah;
+
+            if (lokasi) { lembagaSet.add(lokasi); lokasiCount[lokasi] = (lokasiCount[lokasi] || 0) + jumlah; }
+
+            let year = "Unknown", tgl = item['Tanggal'] || "";
+            if (tgl.includes('/')) { let p = tgl.split('/'); if (p.length >= 3) year = p[2].substring(0, 4); }
+            else if (tgl.includes('-')) { let p = tgl.split('-'); if (p.length >= 1) year = p[0]; }
+
+            if (year !== "Unknown" && !isNaN(year)) {
+                if (jenis === "prasarana") yearlyPrasarana[year] = (yearlyPrasarana[year] || 0) + jumlah;
+                else yearlySarana[year] = (yearlySarana[year] || 0) + jumlah;
+            }
+        });
+
+        let chartLabels = Object.keys(lokasiCount);
+        let chartValues = chartLabels.map(l => lokasiCount[l]);
+        let allYears = new Set([...Object.keys(yearlySarana), ...Object.keys(yearlyPrasarana)]);
+        let trendLabels = Array.from(allYears).sort();
+
+        let dData = {
+          sarana: stats.sarana, prasarana: stats.prasarana, baik: stats.baik, rusak: stats.rusak, lembaga: lembagaSet.size,
+          nilaiTotal: stats.nilaiTotal, chartLabels: chartLabels, chartValues: chartValues, trendLabels: trendLabels,
+          trendSarana: trendLabels.map(y => yearlySarana[y] || 0), trendPrasarana: trendLabels.map(y => yearlyPrasarana[y] || 0)
+        };
+
+        cachedDashboardData = dData;
+        if(document.getElementById('view-dashboard').classList.contains('active')) renderDashboardUI(dData);
+    }
+
     function renderDashboardUI(d) {
         try {
             document.getElementById('dash-sarana').innerText=d.sarana||0; document.getElementById('dash-prasarana').innerText=d.prasarana||0;
@@ -840,8 +901,15 @@
     }
 
     function loadDashboard() {
-      if(cachedDashboardData) { renderDashboardUI(cachedDashboardData); gasRequest('getDashboardData').then(d=>{cachedDashboardData=d;if(document.getElementById('view-dashboard').classList.contains('active'))renderDashboardUI(d);}).catch(e=>{}); return; }
-      showLoader("Memuat..."); gasRequest('getDashboardData').then(d=>{hideLoader(); if(d) {cachedDashboardData=d; renderDashboardUI(d);}}).catch(e=>{hideLoader(); showToast(e.message);});
+      if (cachedDashboardData) {
+         renderDashboardUI(cachedDashboardData);
+      } else if (tableData.length > 0) {
+         generateDashboardFromTableData(tableData);
+      } else {
+         // Placeholder while background request works
+         let l = '<i class="fas fa-spinner fa-spin text-sm"></i>';
+         ['dash-sarana','dash-prasarana','dash-lembaga','dash-tanah','dash-baik','dash-rusak'].forEach(id=>document.getElementById(id).innerHTML=l);
+      }
     }
 
     function generateKodeBarang() {
@@ -872,7 +940,11 @@
             lokasi: document.getElementById('select-lokasi').value, keterangan: document.getElementById('tambah-keterangan').value,
             user: currentUser.nama, fotoBase64: b64, fotoName: fName, fotoMimeType: mType
           };
-          gasRequest('addInventory', d).then(res=>{hideLoader(); showToast(res); resetFormTambah(); handleJenisChange(); cachedDashboardData=null; tableData=[]; currentFilteredData=[]; showQRCodeModal(d.idBarang, d.nama);}).catch(e=>{hideLoader(); showToast(e.message);});
+          gasRequest('addInventory', d).then(res=>{
+              hideLoader(); showToast(res); resetFormTambah(); handleJenisChange(); 
+              loadRekap(true); // update background
+              showQRCodeModal(d.idBarang, d.nama);
+          }).catch(e=>{hideLoader(); showToast(e.message);});
       };
       if(f && f.files.length>0) { compressAndConvertImage(f.files[0]).then(img=>exe(img.base64,img.name,img.mimeType)).catch(e=>{hideLoader();showToast("Gagal foto");}); } else { exe("","",""); }
       return false;
@@ -889,13 +961,18 @@
         let f=e.target.files[0]; if(!f) return; let r=new FileReader();
         r.onload = function(ev) { showLoader("Import CSV..."); let txt=ev.target.result, ln=txt.split('\n'), res=[];
             for(let i=0;i<ln.length;i++){ let l=ln[i].trim(); if(l) { let sm=l.includes(';'); let rg=sm?/(".*?"|[^";\s]+)(?=\s*;|\s*$)/g:/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g; let mt=l.match(rg); if(mt) res.push(mt.map(m=>m.replace(/^"|"$/g,'').replace(/""/g,'"'))); } }
-            if(res.length>1) { gasRequest('importInventoryData',res).then(rs=>{hideLoader();showToast(res);document.getElementById('import-file').value="";cachedDashboardData=null;tableData=[];}).catch(e=>{hideLoader();showToast(e.message);}); } else {hideLoader();showToast("Invalid CSV");}
+            if(res.length>1) { gasRequest('importInventoryData',res).then(rs=>{hideLoader();showToast(res);document.getElementById('import-file').value="";loadRekap(true);}).catch(e=>{hideLoader();showToast(e.message);}); } else {hideLoader();showToast("Invalid CSV");}
         }; r.readAsText(f);
     };
 
     function loadRekap(force = false) {
-      if (!force && tableData.length > 0) { currentFilteredData=tableData; rekapCurrentPage=1; filterTable(); gasRequest('getInventoryList').then(d=>{tableData=d;if(document.getElementById('search-rekap').value==='')filterTable();}).catch(e=>{}); return; }
-      showLoader(); gasRequest('getInventoryList').then(d=>{hideLoader();tableData=d;currentFilteredData=d;rekapCurrentPage=1;filterTable();}).catch(e=>{hideLoader();showToast(e.message);});
+      if (!force && hasFetchedRekap) { 
+         currentFilteredData=tableData; rekapCurrentPage=1; filterTable(); 
+         // Silently fetch updates without showing loading spinner blocking UI
+         gasRequest('getInventoryList').then(d=>{tableData=d; generateDashboardFromTableData(d); if(document.getElementById('search-rekap').value==='')filterTable();}).catch(e=>{}); 
+         return; 
+      }
+      showLoader("Memuat data..."); gasRequest('getInventoryList').then(d=>{hideLoader();tableData=d;currentFilteredData=d;hasFetchedRekap=true;rekapCurrentPage=1;generateDashboardFromTableData(d);filterTable();}).catch(e=>{hideLoader();showToast(e.message);});
     }
     
     function filterTable() {
@@ -945,7 +1022,7 @@
     window.hapusBarangTerpilih = function() {
         let ch = document.querySelectorAll('.row-checkbox:checked'), ids = Array.from(ch).map(c=>c.value); if(ids.length===0) return showToast("Pilih barang!");
         openModal("Hapus", `Hapus ${ids.length} barang?`, "confirm", null, ()=>{ showLoader(); let c=0;
-            function dn(idx) { if(idx>=ids.length) { hideLoader(); showToast("Dihapus."); cachedDashboardData=null; tableData=[]; loadRekap(); return; } gasRequest('deleteInventory',{idBarang:ids[idx],user:currentUser.nama}).then(()=>dn(idx+1)).catch(()=>dn(idx+1)); } dn(0);
+            function dn(idx) { if(idx>=ids.length) { hideLoader(); showToast("Dihapus."); loadRekap(true); return; } gasRequest('deleteInventory',{idBarang:ids[idx],user:currentUser.nama}).then(()=>dn(idx+1)).catch(()=>dn(idx+1)); } dn(0);
         });
     };
 
@@ -978,11 +1055,17 @@
     window.downloadFinalPDF=function(){showLoader("PDF...");html2pdf().set({margin:0,filename:'Barcode.pdf',jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('preview-barcode-content')).save().then(()=>hideLoader());};
     window.printNativeBarcode=function(){let w=window.open('','','height=800,width=1000'); w.document.write('<html><head><style>body{margin:0;padding:0} .a4-page{width:210mm;height:295mm;padding:10mm;page-break-after:always;overflow:hidden;} .print-title-bc{text-align:center;font-weight:bold;margin-bottom:10px} .barcode-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(5,1fr);gap:4mm;height:95%} .barcode-label{border:1px dashed #333;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;} .barcode-label img{width:70px;height:70px;margin-bottom:4px} .lbl-id{font-size:11px;font-weight:bold} .lbl-name{font-size:9px} .lbl-loc{font-size:8px;margin-top:3px;border-top:1px solid #ccc;width:100%}</style></head><body>'+document.getElementById('preview-barcode-content').innerHTML+'</body></html>'); w.document.close(); setTimeout(()=>{w.focus();w.print();},500);};
 
-    // FITUR PINJAM BARANG
-    function loadPinjam() {
+    // FITUR PINJAM BARANG (OPTIMASI)
+    function loadPinjam(force = false) {
+        if (!force && hasFetchedPinjam) {
+            renderPinjamTable(); 
+            // Ambil diam-diam agar update terbaru muncul
+            gasRequest('getListPeminjaman').then(res => { pinjamData = res; renderPinjamTable(); }).catch(e => {});
+            return;
+        }
         showLoader("Memuat Transaksi...");
         gasRequest('getListPeminjaman').then(res => {
-            hideLoader(); pinjamData = res; renderPinjamTable();
+            hideLoader(); pinjamData = res; hasFetchedPinjam = true; renderPinjamTable();
         }).catch(e => {hideLoader(); showToast(e.message);});
     }
 
@@ -993,7 +1076,7 @@
         let h='';
         pinjamData.forEach(p => {
             let clr = p['Status']==='Dipinjam'?'bg-amber-100 text-amber-700':'bg-emerald-100 text-emerald-700';
-            let act = p['Status']==='Dipinjam'?`<button onclick="doKembali('${p['ID Pinjam']}')" class="px-3 py-1 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition">Kembalikan</button>`:`<span class="text-xs text-slate-500">${p['Tanggal Kembali']}</span>`;
+            let act = p['Status']==='Dipinjam'?`<button onclick="doKembali('${p['ID Pinjam']}')" class="px-3 py-1 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition shadow">Kembalikan</button>`:`<span class="text-xs text-slate-500">${p['Tanggal Kembali']}</span>`;
             h+=`<tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
               <td class="py-3 px-4">${p['Tanggal Pinjam']}<br><span class="text-xs font-mono text-slate-500">${p['ID Pinjam']}</span></td>
               <td class="py-3 px-4 font-semibold">${p['Peminjam']}</td>
@@ -1022,11 +1105,11 @@
     window.doPinjam = function() {
         let s=document.getElementById('pinjam-idbarang'), o=s.options[s.selectedIndex]; if(!o.value) return showToast("Pilih barang!");
         let d = { idBarang: o.value, namaBarang: o.getAttribute('data-nama'), peminjam: document.getElementById('pinjam-peminjam').value, jumlah: document.getElementById('pinjam-jumlah').value, keterangan: document.getElementById('pinjam-ket').value, user: currentUser.nama };
-        showLoader("Memproses..."); gasRequest('pinjamBarang', d).then(r=>{ hideLoader();showToast(r);closePinjamModal();loadPinjam();tableData=[];cachedDashboardData=null;}).catch(e=>{hideLoader();showToast(e.message);});
+        showLoader("Memproses..."); gasRequest('pinjamBarang', d).then(r=>{ hideLoader();showToast(r);closePinjamModal(); loadPinjam(true); loadRekap(true); }).catch(e=>{hideLoader();showToast(e.message);});
     };
     window.doKembali = function(id) {
         openModal("Konfirmasi", "Barang ini akan ditandai kembali ke sistem?", "confirm", null, ()=>{
-            showLoader(); gasRequest('kembalikanBarang', {idPinjam:id, user:currentUser.nama}).then(r=>{hideLoader();showToast(r);loadPinjam();tableData=[];cachedDashboardData=null;}).catch(e=>{hideLoader();showToast(e.message);});
+            showLoader("Memproses..."); gasRequest('kembalikanBarang', {idPinjam:id, user:currentUser.nama}).then(r=>{hideLoader();showToast(r); loadPinjam(true); loadRekap(true); }).catch(e=>{hideLoader();showToast(e.message);});
         });
     };
 
@@ -1084,11 +1167,11 @@
       let n=document.getElementById('edit-nama').value; if(!n) return showToast("Kosong!"); showLoader("Menyimpan..."); let f=document.getElementById('edit-foto'); if(f&&f.files&&f.files.length>0&&f.files[0].size>5*1024*1024) return showToast("Maks 5MB!"),hideLoader(),false;
       let ex = function(b,fn,mt) {
           let d = { idBarang: document.getElementById('edit-id').value, jenis: document.getElementById('edit-jenis').value, nama: document.getElementById('edit-nama').value, kategori: document.getElementById('edit-kategori').value||"-", jumlah: document.getElementById('edit-jumlah').value, nilai: document.getElementById('edit-nilai').value, kondisi: document.getElementById('edit-kondisi').value, lokasi: document.getElementById('edit-lokasi').value, keterangan: document.getElementById('edit-ket').value, user: currentUser.nama };
-          if(b){d.fotoBase64=b; d.fotoName=fn; d.fotoMimeType=mt;} gasRequest('updateInventory', d).then(r=>{hideLoader();showToast(r);closeEditModal();cachedDashboardData=null;tableData=[];loadRekap();}).catch(e=>{hideLoader();showToast(e.message);});
+          if(b){d.fotoBase64=b; d.fotoName=fn; d.fotoMimeType=mt;} gasRequest('updateInventory', d).then(r=>{hideLoader();showToast(r);closeEditModal(); loadRekap(true); }).catch(e=>{hideLoader();showToast(e.message);});
       };
       if(f&&f.files&&f.files.length>0) compressAndConvertImage(f.files[0]).then(i=>ex(i.base64,i.name,i.mimeType)).catch(()=>hideLoader()); else ex("","",""); return false;
     };
-    function hapusBarang(id) { openModal("Hapus",`Hapus permanen ${id}?`,"confirm",null,()=>{ showLoader(); gasRequest('deleteInventory',{idBarang:id,user:currentUser.nama}).then(r=>{hideLoader();showToast(r);cachedDashboardData=null;tableData=[];loadRekap();}).catch(e=>{hideLoader();showToast(e.message);}); }); }
+    function hapusBarang(id) { openModal("Hapus",`Hapus permanen ${id}?`,"confirm",null,()=>{ showLoader(); gasRequest('deleteInventory',{idBarang:id,user:currentUser.nama}).then(r=>{hideLoader();showToast(r); loadRekap(true);}).catch(e=>{hideLoader();showToast(e.message);}); }); }
 
     // CEK SARANA
     function startScanner() { try{document.getElementById('btn-start-scan').classList.add('hidden');document.getElementById('btn-stop-scan').classList.remove('hidden');document.getElementById('reader-placeholder').classList.add('hidden');if(typeof Html5Qrcode!=='undefined'){html5QrCode=new Html5Qrcode("reader");html5QrCode.start({facingMode:"environment"},{fps:10,qrbox:{width:250,height:250}},onScanSuccess).catch(()=>{showToast("Gagal kamera");stopScanner();});}}catch(e){} }
