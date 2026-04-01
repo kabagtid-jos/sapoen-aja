@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SAPOEN AJA - Sarpras Abu Zairi Jaya</title>
+  <title>SI TARAPRAJA - Sarpras Abu Zairi Jaya</title>
   
   <!-- PWA & iOS Meta Tags -->
   <link rel="icon" href="https://i.ibb.co.com/vCwGpxww/Desain-tanpa-judul.png" type="image/png">
   <link rel="apple-touch-icon" href="https://i.ibb.co.com/vCwGpxww/Desain-tanpa-judul.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="SAPOEN AJA">
+  <meta name="apple-mobile-web-app-title" content="SI TARAPRAJA">
   <meta name="theme-color" content="#10b981">
   <link rel="manifest" id="manifest-link">
   
@@ -309,8 +309,8 @@
         <div class="absolute -top-16 -right-16 w-32 h-32 bg-slate-100 dark:bg-slate-700 rounded-full opacity-50"></div>
         
         <img src="https://i.ibb.co.com/1GFHGx5N/Logo-Pondok-Baru-2023.png" alt="Logo Pondok" class="w-24 h-24 object-contain mx-auto mb-4 relative z-10 drop-shadow-md">
-        <h1 class="text-3xl font-bold text-slate-800 dark:text-white tracking-tight relative z-10">SAPOEN <span class="text-emerald-500">AJA</span></h1>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 mb-8 relative z-10 font-medium">Sistem Manajemen Sarana Prasarana<br>Pondok Pesantren Salafiyah Abu Zairi Jaya</p>
+        <h1 class="text-3xl font-bold text-slate-800 dark:text-white tracking-tight relative z-10">SI <span class="text-emerald-500">TARAPRAJA</span></h1>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 mb-8 relative z-10 font-medium">Sistem Digital Sarana Prasarana<br>Pondok Pesantren Salafiyah Abu Zairi Jaya</p>
         
         <form id="login-form" class="relative z-10" onsubmit="event.preventDefault(); window.doLogin(); return false;">
           <div class="relative mb-6 text-left">
@@ -342,7 +342,7 @@
     <aside class="sidebar w-64 bg-slate-900 text-slate-200 shadow-2xl hidden md:flex flex-col border-r border-slate-800 h-full flex-shrink-0 z-30 transition-all duration-300 relative overflow-hidden">
       <div class="p-6 border-b border-slate-800 text-center relative z-10">
         <img src="https://i.ibb.co.com/1GFHGx5N/Logo-Pondok-Baru-2023.png" alt="Logo Pondok" class="w-16 h-16 object-contain mx-auto mb-2 drop-shadow-md">
-        <h2 class="text-xl font-bold text-white tracking-wide">SAPOEN <span class="text-emerald-500">AJA</span></h2>
+        <h2 class="text-xl font-bold text-white tracking-wide">SI <span class="text-emerald-500">TARAPRAJA</span></h2>
       </div>
       <nav class="flex-1 px-4 py-6 space-y-2 relative z-10 overflow-y-auto custom-scrollbar">
         <button type="button" onclick="navTo('dashboard')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800 text-emerald-400 border-l-4 border-emerald-500 transition shadow-md" data-target="dashboard"><i class="fas fa-chart-pie w-5"></i> Dashboard</button>
@@ -377,7 +377,7 @@
 
       <!-- HEADER Mobile -->
       <header class="md:hidden bg-slate-900 border-b-2 border-emerald-500 text-white p-3 shadow-lg sticky top-0 z-20 flex justify-between items-center flex-shrink-0">
-        <div class="flex items-center gap-2"><img src="https://i.ibb.co.com/1GFHGx5N/Logo-Pondok-Baru-2023.png" alt="Logo Pondok" class="w-8 h-8 object-contain"><h1 class="font-bold text-lg tracking-wide truncate">SAPOEN <span class="text-emerald-400">AJA</span></h1></div>
+        <div class="flex items-center gap-2"><img src="https://i.ibb.co.com/1GFHGx5N/Logo-Pondok-Baru-2023.png" alt="Logo Pondok" class="w-8 h-8 object-contain"><h1 class="font-bold text-lg tracking-wide truncate">SI <span class="text-emerald-400">TARAPRAJA</span></h1></div>
         <div class="flex items-center gap-3 shrink-0">
           <button type="button" onclick="triggerPWAInstall()" class="text-indigo-400 hover:text-indigo-300 text-lg w-6 h-6 justify-center items-center hidden" id="install-pwa-btn-mobile" title="Install App"><i class="fas fa-download"></i></button>
           <button type="button" onclick="navTo('config')" class="text-slate-300 hover:text-emerald-400 text-lg w-6 h-6 flex justify-center items-center transition-colors" id="header-config-btn" title="Konfigurasi"><i class="fas fa-cog"></i></button>
@@ -703,8 +703,8 @@
     function initPWA() {
       // 1. Buat File Manifest.json Dinamis
       const manifest = {
-        name: "SAPOEN AJA - Sarpras",
-        short_name: "SAPOEN AJA",
+        name: "SI TARAPRAJA - Sarpras",
+        short_name: "SI TARAPRAJA",
         start_url: window.location.pathname,
         display: "standalone",
         background_color: "#0f172a",
@@ -1044,7 +1044,7 @@
         showLoader("Eksport CSV..."); gasRequest('getInventoryList').then(d=>{ if(!d||d.length===0){hideLoader();return showToast("Kosong");}
             let b="\uFEFF", c="data:text/csv;charset=utf-8,"+b+"ID Barang;Tanggal;Nama Barang;Kategori;Jumlah;Kondisi;Lokasi;Keterangan;Jenis;Nilai;Link Foto\r\n";
             d.forEach(r=>{ let ro=[]; ["ID Barang","Tanggal","Nama Barang","Kategori","Jumlah","Kondisi","Lokasi","Keterangan","Jenis","Nilai","Link Foto"].forEach(h=>{ let vl=r[h]!=null?r[h].toString().replace(/(\r\n|\n|\r)/gm," "):""; if(vl.includes('"')||vl.includes(';')) vl='"'+vl.replace(/"/g,'""')+'"'; ro.push(vl); }); c+=ro.join(";")+"\r\n"; });
-            let l=document.createElement("a"); l.href=encodeURI(c); l.download="SapoenAja_"+new Date().getTime()+".csv"; document.body.appendChild(l); hideLoader(); l.click(); document.body.removeChild(l);
+            let l=document.createElement("a"); l.href=encodeURI(c); l.download="Sitarapraja_"+new Date().getTime()+".csv"; document.body.appendChild(l); hideLoader(); l.click(); document.body.removeChild(l);
         }).catch(e=>{hideLoader();showToast(e.message);});
     };
     window.importData = function(e) {
@@ -1126,7 +1126,7 @@
       let ht='<thead><tr><th style="width:5%">No</th><th style="width:15%">ID</th><th style="width:20%">Nama</th><th style="width:15%">Kategori</th><th style="width:15%">Lokasi</th><th style="width:10%">Jml</th><th style="width:10%">Kondisi</th><th style="width:10%">Nilai</th></tr></thead><tbody>', tot=0;
       dt.forEach((i,x)=>{ let nl=parseFloat(i['Nilai'])||0; tot+=nl; ht+=`<tr class="avoid-page-break"><td>${x+1}</td><td>${i['ID Barang']||'-'}</td><td>${i['Nama Barang']||'-'}</td><td>${i['Kategori']||'-'}</td><td>${i['Lokasi']||'-'}</td><td>${i['Jumlah']||0}</td><td>${i['Kondisi']||'-'}</td><td>Rp ${parseInt(nl).toLocaleString('id-ID')}</td></tr>`;});
       ht+=`</tbody><tfoot><tr class="avoid-page-break"><th colspan="7" style="text-align:right;padding-right:15px;">TOTAL NILAI:</th><th>Rp ${parseInt(tot).toLocaleString('id-ID')}</th></tr></tfoot>`;
-      document.getElementById('print-table-content').innerHTML=ht; document.querySelector('.print-subtitle-tbl').innerText='Pesantren Abu Zairi'+(fT==='ALL'?'':` | ${fT}: ${fV}`);
+      document.getElementById('print-table-content').innerHTML=ht; document.querySelector('.print-subtitle-tbl').innerText='Pondok Pesantren Salafiyah Abu Zairi'+(fT==='ALL'?'':` | ${fT}: ${fV}`);
       let el=document.getElementById('print-container'); document.getElementById('main-app').style.display='none'; document.body.classList.remove('overflow-hidden'); document.documentElement.classList.remove('overflow-hidden'); el.style.display='block';
       setTimeout(()=>{ html2pdf().set({margin:[10,10,15,10],filename:`Laporan_${fT}_${fV}.pdf`,jsPDF:{unit:'mm',format:'a4',orientation:'landscape'}}).from(el).save().then(()=>{ el.style.display='none'; document.documentElement.classList.add('overflow-hidden'); document.body.classList.add('overflow-hidden'); document.getElementById('main-app').style.display='flex'; hideLoader();}); }, 500);
     };
