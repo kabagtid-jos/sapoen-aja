@@ -215,11 +215,16 @@
           <div class="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4">
               <input type="hidden" id="edit-id" name="idBarang">
               <div><label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Jenis Inventaris</label><select name="jenis" id="edit-jenis" onchange="handleEditJenisChange()" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"><option value="Sarana">Sarana</option><option value="Prasarana">Prasarana</option></select></div>
-              <div><label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Nama Barang</label><input type="text" id="edit-nama" name="nama" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"></div>
-              <div><label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Kategori</label><select name="kategori" id="edit-kategori" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"></select></div>
+              <div><label id="lbl-edit-nama" class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Nama Barang</label><input type="text" id="edit-nama" name="nama" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"></div>
+              
+              <div id="wrap-edit-kategori"><label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Kategori</label><select name="kategori" id="edit-kategori" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"></select></div>
+              
               <div><label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Lokasi Ruangan</label><select name="lokasi" id="edit-lokasi" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"></select></div>
-              <div><label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Jumlah</label><input type="number" id="edit-jumlah" name="jumlah" min="1" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"></div>
-              <div><label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Total Nilai (Rp)</label><input type="number" id="edit-nilai" name="nilai" min="0" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"></div>
+              
+              <div><label id="lbl-edit-jumlah" class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Jumlah</label><input type="text" id="edit-jumlah" name="jumlah" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"></div>
+              
+              <div><label id="lbl-edit-nilai" class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Total Nilai (Rp)</label><input type="number" id="edit-nilai" name="nilai" min="0" required class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"></div>
+              
               <div class="md:col-span-2"><label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Kondisi</label><select name="kondisi" id="edit-kondisi" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"><option value="Baik">Baik</option><option value="Rusak">Rusak</option></select></div>
               <div class="md:col-span-2"><label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Keterangan</label><textarea id="edit-ket" name="keterangan" rows="2" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm"></textarea></div>
               <div class="md:col-span-2 mt-2 flex justify-end gap-3">
@@ -452,11 +457,18 @@
                 </div>
                 <div><label class="block text-sm font-medium mb-1 dark:text-slate-300">Tanggal Input</label><input type="date" id="tambah-tanggal" required class="w-full px-4 py-2 border rounded-lg outline-none text-sm focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600"></div>
                 <div><label class="block text-sm font-medium mb-1 dark:text-slate-300">Jenis *</label><select id="tambah-jenis" onchange="handleJenisChange()" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600"><option value="Sarana" selected>Sarana</option><option value="Prasarana">Prasarana</option></select></div>
-                <div><label class="block text-sm font-medium mb-1 dark:text-slate-300">Nama Barang *</label><input type="text" id="tambah-nama" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600"></div>
-                <div><label class="block text-sm font-medium mb-1 dark:text-slate-300">Kategori *</label><select id="select-kategori" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600"></select></div>
-                <div><label class="block text-sm font-medium mb-1 dark:text-slate-300">Jumlah *</label><input type="number" id="tambah-jumlah" min="1" value="1" oninput="hitungTotalNilai()" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600"></div>
-                <div><label class="block text-sm font-medium mb-1 dark:text-slate-300">Nilai Satuan (Rp) *</label><input type="number" id="tambah-nilai-satuan" min="0" oninput="hitungTotalNilai()" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600" placeholder="0"></div>
-                <div><label class="block text-sm font-medium mb-1 dark:text-slate-300">Total Nilai</label><input type="text" id="tambah-total-nilai-display" readonly class="w-full px-4 py-2 border bg-slate-50 rounded-lg dark:bg-slate-800 dark:text-slate-400 dark:border-slate-600"><input type="hidden" id="tambah-total-nilai" value="0"></div>
+                
+                <div><label id="lbl-tambah-nama" class="block text-sm font-medium mb-1 dark:text-slate-300">Nama Barang *</label><input type="text" id="tambah-nama" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600"></div>
+                
+                <div id="wrap-tambah-kategori"><label class="block text-sm font-medium mb-1 dark:text-slate-300">Kategori *</label><select id="select-kategori" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600"></select></div>
+                
+                <!-- Berubah dari number menjadi text agar bisa memasukkan huruf seperti "10 m2" -->
+                <div><label id="lbl-tambah-jumlah" class="block text-sm font-medium mb-1 dark:text-slate-300">Jumlah *</label><input type="text" id="tambah-jumlah" value="1" oninput="hitungTotalNilai()" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600"></div>
+                
+                <div><label id="lbl-tambah-nilai-satuan" class="block text-sm font-medium mb-1 dark:text-slate-300">Nilai Satuan (Rp) *</label><input type="number" id="tambah-nilai-satuan" min="0" oninput="hitungTotalNilai()" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600" placeholder="0"></div>
+                
+                <div id="wrap-tambah-total-nilai"><label class="block text-sm font-medium mb-1 dark:text-slate-300">Total Nilai</label><input type="text" id="tambah-total-nilai-display" readonly class="w-full px-4 py-2 border bg-slate-50 rounded-lg dark:bg-slate-800 dark:text-slate-400 dark:border-slate-600"><input type="hidden" id="tambah-total-nilai" value="0"></div>
+                
                 <div><label class="block text-sm font-medium mb-1 dark:text-slate-300">Kondisi *</label><select id="tambah-kondisi" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600"><option value="Baik">Baik</option><option value="Rusak">Rusak</option></select></div>
                 <div><label class="block text-sm font-medium mb-1 dark:text-slate-300">Lokasi Ruangan *</label><select id="select-lokasi" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white dark:border-slate-600"></select></div>
                 <div class="md:col-span-2"><label class="block text-sm font-medium mb-1 dark:text-slate-300">Upload Foto (Opsional)</label><input type="file" id="tambah-foto" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 cursor-pointer dark:bg-slate-700 dark:text-white dark:border-slate-600"></div>
@@ -1002,15 +1014,90 @@
       var j = document.getElementById('tambah-jenis'); var v = j ? j.value : 'Sarana';
       var i = document.getElementById('tambah-id'); if(i) i.value = (v === 'Prasarana' ? 'PRS-' : 'SRN-') + new Date().getTime().toString().slice(-4) + '-' + Math.floor(1000 + Math.random()*9000);
     }
+
+    // --- MODIFIKASI DIMULAI DARI SINI: Logika UI Berubah Sesuai Pilihan (Sarana/Prasarana) ---
     function handleJenisChange() {
-      generateKodeBarang(); var j=document.getElementById('tambah-jenis'), c=document.getElementById('select-kategori');
-      if(j&&c) { if(j.value==='Prasarana'){ c.disabled=true; c.value=""; c.classList.add('opacity-50'); } else { c.disabled=false; c.classList.remove('opacity-50'); } }
+      generateKodeBarang(); 
+      var j = document.getElementById('tambah-jenis'); 
+      var c = document.getElementById('select-kategori');
+      var wrapKat = document.getElementById('wrap-tambah-kategori');
+      var wrapTot = document.getElementById('wrap-tambah-total-nilai');
+      var lblNama = document.getElementById('lbl-tambah-nama');
+      var lblJml = document.getElementById('lbl-tambah-jumlah');
+      var lblSat = document.getElementById('lbl-tambah-nilai-satuan');
+
+      if(j && c) { 
+        if(j.value === 'Prasarana') {
+          // Menyembunyikan Kategori (dan hilangkan validasi required-nya agar form tetap bisa disubmit)
+          if(wrapKat) wrapKat.classList.add('hidden');
+          c.required = false; 
+          c.value = ""; 
+          
+          // Menyembunyikan Total Nilai
+          if(wrapTot) wrapTot.classList.add('hidden');
+
+          // Merubah Nama Label
+          if(lblNama) lblNama.innerText = "Nama Gedung / Ruangan *";
+          if(lblJml) lblJml.innerText = "Ukuran (misal: 10x10 m) *";
+          if(lblSat) lblSat.innerText = "Nilai Aset (Rp) *";
+          
+          // Ubah tipe input 'jumlah' menjadi text, agar bisa ditulis ukuran huruf (cth: 10m2)
+          let inputJml = document.getElementById('tambah-jumlah');
+          if(inputJml) inputJml.type = "text";
+
+        } else {
+          // Mengembalikan tampilan untuk "Sarana"
+          if(wrapKat) wrapKat.classList.remove('hidden');
+          c.required = true;
+
+          if(wrapTot) wrapTot.classList.remove('hidden');
+
+          if(lblNama) lblNama.innerText = "Nama Barang *";
+          if(lblJml) lblJml.innerText = "Jumlah *";
+          if(lblSat) lblSat.innerText = "Nilai Satuan (Rp) *";
+
+          // Ubah kembali ke number
+          let inputJml = document.getElementById('tambah-jumlah');
+          if(inputJml) inputJml.type = "number";
+        }
+      }
+      hitungTotalNilai(); // Hitung ulang nilai
     }
+
     function hitungTotalNilai() {
-      var j=document.getElementById('tambah-jumlah'), n=document.getElementById('tambah-nilai-satuan'), t=document.getElementById('tambah-total-nilai'), d=document.getElementById('tambah-total-nilai-display');
-      if(j&&n&&t&&d) { let tot = (parseFloat(j.value)||0)*(parseFloat(n.value)||0); t.value=tot; d.value=tot.toLocaleString('id-ID'); }
+      var jInput = document.getElementById('tambah-jumlah');
+      var n = document.getElementById('tambah-nilai-satuan');
+      var t = document.getElementById('tambah-total-nilai');
+      var d = document.getElementById('tambah-total-nilai-display');
+      var jenis = document.getElementById('tambah-jenis');
+
+      if(jInput && n && t && d) { 
+         let nilaiSatuan = parseFloat(n.value) || 0;
+         let tot = 0;
+
+         // Jika prasarana, nilai total langsung sama dengan nilai aset
+         if (jenis && jenis.value === 'Prasarana') {
+            tot = nilaiSatuan;
+         } else {
+            // Jika sarana, nilai total adalah jumlah dikali nilai satuan
+            let jml = parseFloat(jInput.value) || 0;
+            tot = jml * nilaiSatuan;
+         }
+         
+         t.value = tot; 
+         d.value = tot.toLocaleString('id-ID'); 
+      }
     }
-    function resetFormTambah() { document.getElementById('tambah-nama').value=""; document.getElementById('tambah-jumlah').value="1"; document.getElementById('tambah-nilai-satuan').value=""; document.getElementById('tambah-keterangan').value=""; let f=document.getElementById('tambah-foto'); if(f) f.value=""; setTimeout(()=>{hitungTotalNilai();setTanggalInput();},10); }
+
+    function resetFormTambah() { 
+      document.getElementById('tambah-nama').value=""; 
+      document.getElementById('tambah-jumlah').value="1"; 
+      document.getElementById('tambah-nilai-satuan').value=""; 
+      document.getElementById('tambah-keterangan').value=""; 
+      let f=document.getElementById('tambah-foto'); if(f) f.value=""; 
+      // Panggil handleJenisChange() setelah reset untuk mengembalikan UI ke state awal
+      setTimeout(()=>{ setTanggalInput(); handleJenisChange(); },10); 
+    }
     
     window.doTambah = function() {
       var n=document.getElementById('tambah-nama').value; if(!n) return showToast("Isi nama barang!");
@@ -1031,7 +1118,7 @@
             user: currentUser.nama, fotoBase64: b64, fotoName: fName, fotoMimeType: mType
           };
           gasRequest('addInventory', d).then(res=>{
-              hideLoader(); showToast(res); resetFormTambah(); handleJenisChange(); 
+              hideLoader(); showToast(res); resetFormTambah(); 
               loadRekap(true); 
               showQRCodeModal(d.idBarang, d.nama);
           }).catch(e=>{hideLoader(); showToast(e.message);});
@@ -1091,7 +1178,7 @@
           <td class="py-3 px-4 text-center"><input type="checkbox" class="row-checkbox rounded text-emerald-600" value="${i['ID Barang']}"></td>
           <td class="py-3 px-4"><button onclick="showQRCodeModal('${i['ID Barang']}','${i['Nama Barang']}')" class="font-bold text-emerald-600 dark:text-emerald-400 hover:underline">${i['ID Barang']}</button><div class="text-xs text-slate-500">${i['Tanggal']}</div></td>
           <td class="py-3 px-4"><button onclick="showDetailModal('${i['ID Barang']}')" class="font-bold text-slate-800 dark:text-white hover:underline">${i['Nama Barang']}</button></td>
-          <td class="py-3 px-4 text-slate-800 dark:text-slate-200">${i['Kategori']}<div class="text-xs text-slate-500">${i['Jumlah']} unit</div></td>
+          <td class="py-3 px-4 text-slate-800 dark:text-slate-200">${i['Kategori']}<div class="text-xs text-slate-500">${i['Jumlah']}</div></td>
           <td class="py-3 px-4 font-medium text-emerald-700 dark:text-emerald-400">Rp ${parseInt(i['Nilai']||0).toLocaleString('id-ID')}</td>
           <td class="py-3 px-4"><span class="px-2 py-1 rounded-full text-xs font-bold ${bgK}">${i['Kondisi']}</span></td>
           <td class="py-3 px-4 text-slate-700 dark:text-slate-300">${i['Lokasi']}</td>
@@ -1264,17 +1351,48 @@
     function closeDetailModal(){let m=document.getElementById('detail-modal');m.classList.add('opacity-0');m.children[0].classList.add('scale-95');setTimeout(()=>m.classList.add('hidden'),300);}
 
     window.previewEditImage=function(e){let i=e.target;if(i.files&&i.files[0]){let r=new FileReader();r.onload=ev=>document.getElementById('edit-foto-preview').src=ev.target.result;r.readAsDataURL(i.files[0]);}};
+    
+    // --- MODIFIKASI TAMBAHAN PADA FORM EDIT ---
+    function handleEditJenisChange() { 
+      let j = document.getElementById('edit-jenis');
+      let c = document.getElementById('edit-kategori');
+      let wrapKat = document.getElementById('wrap-edit-kategori');
+      let lblNama = document.getElementById('lbl-edit-nama');
+      let lblJml = document.getElementById('lbl-edit-jumlah');
+      let lblNilai = document.getElementById('lbl-edit-nilai');
+
+      if(j && c) {
+        if(j.value === 'Prasarana') {
+          if(wrapKat) wrapKat.classList.add('hidden');
+          c.required = false;
+          if(lblNama) lblNama.innerText = "Nama Gedung / Ruangan";
+          if(lblJml) lblJml.innerText = "Ukuran";
+          if(lblNilai) lblNilai.innerText = "Nilai Aset (Rp)";
+          document.getElementById('edit-jumlah').type = 'text'; // Ganti agar bisa huruf
+        } else {
+          if(wrapKat) wrapKat.classList.remove('hidden');
+          c.required = true;
+          if(lblNama) lblNama.innerText = "Nama Barang";
+          if(lblJml) lblJml.innerText = "Jumlah";
+          if(lblNilai) lblNilai.innerText = "Total Nilai (Rp)";
+          document.getElementById('edit-jumlah').type = 'number';
+        }
+      }
+    }
+
     function openEditModal(id) {
       let it=tableData.find(i=>i['ID Barang']===id); if(!it) return;
       let kE=document.getElementById('edit-kategori'); if(kE&&appConfigData.kategori){kE.innerHTML='';appConfigData.kategori.forEach(k=>kE.innerHTML+=`<option value="${k}">${k}</option>`);}
       let lE=document.getElementById('edit-lokasi'); if(lE&&appConfigData.lokasi){lE.innerHTML='';appConfigData.lokasi.forEach(l=>lE.innerHTML+=`<option value="${l}">${l}</option>`);}
       document.getElementById('edit-id').value=it['ID Barang']; document.getElementById('edit-jenis').value=it['Jenis']; document.getElementById('edit-nama').value=it['Nama Barang'];
-      handleEditJenisChange(); if(it['Jenis']!=='Prasarana'&&kE)kE.value=it['Kategori'];
+      
+      handleEditJenisChange(); // Panggil saat membuka modal edit
+
+      if(it['Jenis']!=='Prasarana'&&kE)kE.value=it['Kategori'];
       document.getElementById('edit-jumlah').value=it['Jumlah']; document.getElementById('edit-nilai').value=it['Nilai']; document.getElementById('edit-kondisi').value=it['Kondisi']; document.getElementById('edit-lokasi').value=it['Lokasi']; document.getElementById('edit-ket').value=it['Keterangan'];
       let fI=document.getElementById('edit-foto'); if(fI)fI.value=""; let im=document.getElementById('edit-foto-preview'); im.removeAttribute('src'); im.onerror=function(){this.src=offlineSvgPlaceholder;}; setTimeout(()=>im.src=getDriveImageUrl(it['Link Foto']),10);
       let m=document.getElementById('edit-modal'); m.classList.remove('hidden'); setTimeout(()=>{m.classList.remove('opacity-0');m.children[0].classList.remove('scale-95');},10);
     }
-    function handleEditJenisChange() { let j=document.getElementById('edit-jenis'),c=document.getElementById('edit-kategori');if(j&&c){if(j.value==='Prasarana'){c.disabled=true;c.classList.add('opacity-50');}else{c.disabled=false;c.classList.remove('opacity-50');}} }
     function closeEditModal() { let m=document.getElementById('edit-modal');m.classList.add('opacity-0');m.children[0].classList.add('scale-95');setTimeout(()=>m.classList.add('hidden'),300); }
     window.doEdit=function(){
       let n=document.getElementById('edit-nama').value; if(!n) return showToast("Kosong!"); showLoader("Menyimpan..."); let f=document.getElementById('edit-foto'); if(f&&f.files&&f.files.length>0&&f.files[0].size>5*1024*1024) return showToast("Maks 5MB!"),hideLoader(),false;
