@@ -386,6 +386,7 @@
         <div class="flex items-center gap-2"><img src="https://i.ibb.co.com/1GFHGx5N/Logo-Pondok-Baru-2023.png" alt="Logo Pondok" class="w-8 h-8 object-contain"><h1 class="font-bold text-lg tracking-wide truncate">SI <span class="text-emerald-400">TARAPRAJA</span></h1></div>
         <div class="flex items-center gap-3 shrink-0">
           <button type="button" onclick="triggerPWAInstall()" class="text-indigo-400 hover:text-indigo-300 text-lg w-6 h-6 justify-center items-center hidden" id="install-pwa-btn-mobile" title="Install App"><i class="fas fa-download"></i></button>
+          <button type="button" onclick="navTo('layanan')" class="text-slate-300 hover:text-rose-400 text-lg w-6 h-6 flex justify-center items-center transition-colors" id="header-layanan-btn" title="Layanan"><i class="fas fa-headset"></i></button>
           <button type="button" onclick="navTo('config')" class="text-slate-300 hover:text-emerald-400 text-lg w-6 h-6 flex justify-center items-center transition-colors" id="header-config-btn" title="Konfigurasi"><i class="fas fa-cog"></i></button>
           <button type="button" onclick="toggleTheme()" class="text-emerald-400 text-lg w-6 h-6 flex justify-center items-center" id="theme-toggle-mobile"><i class="fas fa-moon"></i></button>
           <div class="w-8 h-8 rounded-full border-2 border-emerald-400 shadow-sm overflow-hidden bg-white shrink-0"><img id="header-user-photo-mobile" src="" alt="Admin" class="w-full h-full object-cover"></div>
@@ -801,9 +802,6 @@
       <button type="button" onclick="navTo('pinjam')" class="nav-btn w-full py-3 text-slate-400 dark:text-slate-500 transition-all" data-target="pinjam">
         <div class="flex flex-col items-center gap-1"><i class="fas fa-handshake text-xl"></i><span class="text-[10px] font-medium leading-none">Pinjam</span></div>
       </button>
-      <button type="button" onclick="navTo('layanan')" class="nav-btn w-full py-3 text-slate-400 dark:text-slate-500 transition-all" data-target="layanan">
-        <div class="flex flex-col items-center gap-1"><i class="fas fa-headset text-xl"></i><span class="text-[10px] font-medium leading-none">Layanan</span></div>
-      </button>
       <button type="button" onclick="navTo('rekap')" class="nav-btn w-full py-3 text-slate-400 dark:text-slate-500 transition-all" data-target="rekap">
         <div class="flex flex-col items-center gap-1"><i class="fas fa-clipboard-list text-xl"></i><span class="text-[10px] font-medium leading-none">Rekap</span></div>
       </button>
@@ -970,6 +968,11 @@
       if (headerConfigBtn) {
           if (targetId === 'config') { headerConfigBtn.classList.remove('text-slate-300'); headerConfigBtn.classList.add('text-emerald-400'); }
           else { headerConfigBtn.classList.remove('text-emerald-400'); headerConfigBtn.classList.add('text-slate-300'); }
+      }
+      let headerLayananBtn = document.getElementById('header-layanan-btn');
+      if (headerLayananBtn) {
+          if (targetId === 'layanan') { headerLayananBtn.classList.remove('text-slate-300'); headerLayananBtn.classList.add('text-rose-400'); }
+          else { headerLayananBtn.classList.remove('text-rose-400'); headerLayananBtn.classList.add('text-slate-300'); }
       }
 
       document.querySelectorAll('.view-section').forEach(view => {
