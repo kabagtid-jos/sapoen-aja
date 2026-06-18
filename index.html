@@ -1641,15 +1641,16 @@
         return;
       }
       let h = '';
+      let isSuper = currentUser && currentUser.role === 'Super Admin';
       pengaduanData.forEach(p => {
         let status = p['Status'] || 'Masuk';
         let isClosed = ['Selesai','Ditolak'].includes(status);
         let foto = p['Link Foto'] ? `<a href="${esc(p['Link Foto'])}" target="_blank" class="text-xs text-blue-600 hover:underline">Foto</a>` : '';
-        let aksi = isClosed ? `<span class="text-xs text-slate-500">${esc(p['Tindak Lanjut'] || '-')}</span>` : `<div class="flex flex-wrap justify-center gap-1">
+        let aksi = !isSuper ? `<span class="text-xs text-slate-400">-</span>` : (isClosed ? `<span class="text-xs text-slate-500">${esc(p['Tindak Lanjut'] || '-')}</span>` : `<div class="flex flex-wrap justify-center gap-1">
           <button type="button" onclick="updatePengaduanStatus('${esc(p['ID Pengaduan'])}','Diproses')" class="px-2 py-1 bg-blue-600 text-white rounded text-xs">Proses</button>
           <button type="button" onclick="updatePengaduanStatus('${esc(p['ID Pengaduan'])}','Selesai')" class="px-2 py-1 bg-emerald-600 text-white rounded text-xs">Selesai</button>
           <button type="button" onclick="updatePengaduanStatus('${esc(p['ID Pengaduan'])}','Ditolak')" class="px-2 py-1 bg-red-600 text-white rounded text-xs">Tolak</button>
-        </div>`;
+        </div>`);
         h += `<tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
           <td class="py-3 px-4">${esc(p['Tanggal'])}<br><span class="text-xs font-mono text-slate-500">${esc(p['ID Pengaduan'])}</span></td>
           <td class="py-3 px-4"><span class="font-semibold">${esc(p['Nama Barang'])}</span><br><span class="text-xs text-slate-500">${esc(p['ID Barang'])} • ${esc(p['Lokasi'])} • ${esc(p['Jumlah Rusak'])} rusak</span><br><span class="text-xs text-rose-600">${esc(p['Prioritas'])}</span> ${foto}</td>
@@ -1669,15 +1670,16 @@
         return;
       }
       let h = '';
+      let isSuper = currentUser && currentUser.role === 'Super Admin';
       pengajuanData.forEach(p => {
         let status = p['Status'] || 'Diajukan';
         let isClosed = ['Disetujui','Ditolak'].includes(status);
         let estimasi = parseInt(p['Estimasi Biaya'] || 0).toLocaleString('id-ID');
-        let aksi = isClosed ? `<span class="text-xs text-slate-500">${esc(p['Catatan'] || '-')}</span>` : `<div class="flex flex-wrap justify-center gap-1">
+        let aksi = !isSuper ? `<span class="text-xs text-slate-400">-</span>` : (isClosed ? `<span class="text-xs text-slate-500">${esc(p['Catatan'] || '-')}</span>` : `<div class="flex flex-wrap justify-center gap-1">
           <button type="button" onclick="updatePengajuanStatus('${esc(p['ID Pengajuan'])}','Ditinjau')" class="px-2 py-1 bg-blue-600 text-white rounded text-xs">Tinjau</button>
           <button type="button" onclick="updatePengajuanStatus('${esc(p['ID Pengajuan'])}','Disetujui')" class="px-2 py-1 bg-emerald-600 text-white rounded text-xs">Setujui</button>
           <button type="button" onclick="updatePengajuanStatus('${esc(p['ID Pengajuan'])}','Ditolak')" class="px-2 py-1 bg-red-600 text-white rounded text-xs">Tolak</button>
-        </div>`;
+        </div>`);
         h += `<tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
           <td class="py-3 px-4">${esc(p['Tanggal'])}<br><span class="text-xs font-mono text-slate-500">${esc(p['ID Pengajuan'])}</span></td>
           <td class="py-3 px-4"><span class="font-semibold">${esc(p['Nama Barang'])}</span><br><span class="text-xs text-slate-500">${esc(p['Kategori'])} • ${esc(p['Jumlah'])} • ${esc(p['Lokasi Kebutuhan'])}</span><br><span class="text-xs text-blue-600">${esc(p['Urgensi'])} • Rp ${estimasi}</span></td>
@@ -1735,6 +1737,7 @@
     };
 
     window.updatePengaduanStatus = function(id, status) {
+      if (!currentUser || currentUser.role !== 'Super Admin') return showToast("Aksi ini hanya untuk Super Admin.");
       openModal("Update Status", `Ubah status pengaduan menjadi ${status}?`, "input", "", catatan => {
         showLoader("Update status...");
         gasRequest('updateStatusPengaduan', { idPengaduan: id, status: status, catatan: catatan, user: currentUser.nama }).then(r => { hideLoader(); showToast(r); loadLayanan(true); }).catch(e => { hideLoader(); showToast(e.message); });
@@ -1744,6 +1747,7 @@
     };
 
     window.updatePengajuanStatus = function(id, status) {
+      if (!currentUser || currentUser.role !== 'Super Admin') return showToast("Aksi ini hanya untuk Super Admin.");
       openModal("Update Status", `Ubah status pengajuan menjadi ${status}?`, "input", "", catatan => {
         showLoader("Update status...");
         gasRequest('updateStatusPengajuan', { idPengajuan: id, status: status, catatan: catatan, user: currentUser.nama }).then(r => { hideLoader(); showToast(r); loadLayanan(true); }).catch(e => { hideLoader(); showToast(e.message); });
