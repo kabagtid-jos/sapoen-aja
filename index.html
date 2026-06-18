@@ -845,6 +845,15 @@
 
     function gasRequest(action, dataPayload = null) {
       return new Promise(function(resolve, reject) {
+        if (typeof google !== 'undefined' && google.script && google.script.run) {
+          google.script.run
+            .withSuccessHandler(resolve)
+            .withFailureHandler(function(err) {
+              reject(new Error(err && err.message ? err.message : err));
+            })
+            .handleClientRequest(action, dataPayload);
+          return;
+        }
         if (!GAS_API_URL || GAS_API_URL.includes("URL_WEB_APP_ANDA_DISINI")) { reject(new Error("URL API belum disetting")); return; }
         fetch(GAS_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: action, data: dataPayload }) })
         .then(res => res.json()).then(res => { if (res.status === 'success') resolve(res.data); else reject(new Error(res.message || "Server Error")); })
