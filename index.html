@@ -773,7 +773,10 @@
                   <label for="config-fonnte-enabled" class="text-sm font-semibold text-slate-700 dark:text-slate-200">Aktifkan notifikasi WhatsApp</label>
                 </div>
               </div>
-              <button type="button" onclick="saveFonnteConfig()" class="mt-4 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg transition font-medium"><i class="fas fa-save mr-1"></i> Simpan API Fonnte</button>
+              <div class="mt-4 flex flex-col sm:flex-row gap-2">
+                <button type="button" onclick="saveFonnteConfig()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg transition font-medium"><i class="fas fa-save mr-1"></i> Simpan API Fonnte</button>
+                <button type="button" onclick="testFonnteConfig()" class="bg-slate-800 hover:bg-slate-900 text-white px-6 py-2 rounded-lg transition font-medium dark:bg-slate-700 dark:hover:bg-slate-600"><i class="fab fa-whatsapp mr-1"></i> Tes Kirim WA</button>
+              </div>
             </div>
             
             <!-- ADMIN BARU -->
@@ -1866,6 +1869,19 @@
           appConfigData.fonnteTarget = target;
           appConfigData.fonnteEnabled = enabled;
        }).catch(e=>{hideLoader();showToast(e.message);});
+    };
+    window.testFonnteConfig = function() {
+       let token = document.getElementById('config-fonnte-token').value.trim();
+       let target = document.getElementById('config-fonnte-target').value.trim();
+       if(!token || !target) return showToast("Isi token dan nomor tujuan terlebih dahulu.");
+       showLoader("Tes kirim WhatsApp...");
+       gasRequest('testFonnteConnection', { token: token, target: target, user: currentUser.nama }).then(r=>{
+          hideLoader();
+          showToast(r);
+       }).catch(e=>{
+          hideLoader();
+          showToast(e.message);
+       });
     };
     function saveListToBackend(t) { showLoader(); gasRequest('updateConfigList',{type:t,dataStr:JSON.stringify(appConfigData[t])}).then(()=>{hideLoader();renderConfigLists();showToast("Tersimpan");}).catch(e=>{hideLoader();showToast(e.message);}); }
     window.addListItem = function(t) { let e=document.getElementById('input-'+t),v=e.value.trim();if(v&&!appConfigData[t].includes(v)){appConfigData[t].push(v);e.value='';saveListToBackend(t);}else showToast("Gagal/Ada!"); };
