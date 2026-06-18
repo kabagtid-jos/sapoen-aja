@@ -354,6 +354,7 @@
         <button type="button" onclick="navTo('tambah')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="tambah"><i class="fas fa-plus-circle w-5"></i> Tambah Inventaris</button>
         <button type="button" onclick="navTo('cek')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="cek"><i class="fas fa-qrcode w-5"></i> Cek Sarana</button>
         <button type="button" onclick="navTo('pinjam')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="pinjam"><i class="fas fa-handshake w-5"></i> Peminjaman</button>
+        <button type="button" onclick="navTo('layanan')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="layanan"><i class="fas fa-headset w-5"></i> Layanan</button>
         <button type="button" onclick="navTo('rekap')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="rekap"><i class="fas fa-clipboard-list w-5"></i> Rekap Data</button>
         <button type="button" onclick="navTo('config')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition border-l-4 border-transparent" data-target="config" id="sidebar-config-btn"><i class="fas fa-cog w-5"></i> Konfigurasi</button>
       </nav>
@@ -534,6 +535,138 @@
           </div>
         </section>
 
+        <!-- LAYANAN: PENGADUAN & PENGAJUAN -->
+        <section id="view-layanan" class="view-section">
+          <div class="mb-6 flex flex-col md:flex-row justify-between md:items-center gap-3 mt-2 border-b border-slate-200 dark:border-slate-700 pb-4">
+            <div>
+              <h2 class="text-xl font-bold text-slate-800 dark:text-white"><i class="fas fa-headset text-rose-500 mr-2"></i>Layanan Sarpras</h2>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Pengaduan barang rusak dan pengajuan kebutuhan barang baru.</p>
+            </div>
+            <button type="button" onclick="loadLayanan(true)" class="px-4 py-2 bg-slate-100 text-slate-800 rounded-lg text-sm font-medium dark:bg-slate-700 dark:text-white"><i class="fas fa-sync-alt mr-1"></i> Refresh</button>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-6">
+              <h3 class="font-bold text-slate-800 dark:text-white mb-1"><i class="fas fa-triangle-exclamation text-rose-500 mr-2"></i>Pengaduan Barang Rusak</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Gunakan untuk mencatat barang yang rusak agar segera ditindaklanjuti.</p>
+              <form id="form-pengaduan" onsubmit="event.preventDefault(); window.doPengaduanRusak(); return false;">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Nama Pelapor *</label>
+                    <input type="text" id="pengaduan-pelapor" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-rose-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Prioritas</label>
+                    <select id="pengaduan-prioritas" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-rose-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                      <option value="Normal">Normal</option>
+                      <option value="Mendesak">Mendesak</option>
+                      <option value="Darurat">Darurat</option>
+                    </select>
+                  </div>
+                  <div class="md:col-span-2">
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Pilih Barang *</label>
+                    <select id="pengaduan-idbarang" required onchange="updatePengaduanBarangInfo()" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-rose-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white"></select>
+                    <p id="pengaduan-barang-info" class="text-[11px] text-slate-500 mt-1">Memuat data barang...</p>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Jumlah Rusak *</label>
+                    <input type="number" id="pengaduan-jumlah" min="1" value="1" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-rose-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Foto Kerusakan</label>
+                    <input type="file" id="pengaduan-foto" accept="image/*" class="w-full px-3 py-2 border rounded-lg text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                  </div>
+                  <div class="md:col-span-2">
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Uraian Kerusakan *</label>
+                    <textarea id="pengaduan-uraian" rows="3" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-rose-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white" placeholder="Contoh: kaki meja patah, kabel putus, layar tidak menyala..."></textarea>
+                  </div>
+                </div>
+                <button type="submit" class="mt-4 w-full bg-rose-600 hover:bg-rose-700 text-white py-2 rounded-lg transition shadow text-sm font-semibold"><i class="fas fa-paper-plane mr-1"></i> Kirim Pengaduan</button>
+              </form>
+            </div>
+
+            <div class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl shadow-sm border border-slate-200/50 dark:border-slate-700/50 p-6">
+              <h3 class="font-bold text-slate-800 dark:text-white mb-1"><i class="fas fa-cart-plus text-blue-500 mr-2"></i>Pengajuan Barang Baru</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">Gunakan untuk mengusulkan kebutuhan barang yang belum tersedia.</p>
+              <form id="form-pengajuan" onsubmit="event.preventDefault(); window.doPengajuanBarangBaru(); return false;">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Nama Pemohon *</label>
+                    <input type="text" id="pengajuan-pemohon" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Urgensi</label>
+                    <select id="pengajuan-urgensi" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                      <option value="Normal">Normal</option>
+                      <option value="Penting">Penting</option>
+                      <option value="Mendesak">Mendesak</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Nama Barang *</label>
+                    <input type="text" id="pengajuan-nama" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Kategori</label>
+                    <select id="pengajuan-kategori" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white"></select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Jumlah *</label>
+                    <input type="text" id="pengajuan-jumlah" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white" placeholder="Contoh: 5 unit">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Lokasi Kebutuhan</label>
+                    <select id="pengajuan-lokasi" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white"></select>
+                  </div>
+                  <div class="md:col-span-2">
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Estimasi Biaya (Rp)</label>
+                    <input type="number" id="pengajuan-estimasi" min="0" value="0" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                  </div>
+                  <div class="md:col-span-2">
+                    <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Alasan / Keterangan *</label>
+                    <textarea id="pengajuan-alasan" rows="3" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-600 dark:text-white" placeholder="Jelaskan kebutuhan, lokasi penggunaan, dan manfaat barang..."></textarea>
+                  </div>
+                </div>
+                <button type="submit" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition shadow text-sm font-semibold"><i class="fas fa-paper-plane mr-1"></i> Kirim Pengajuan</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6">
+            <div class="bg-white/90 dark:bg-slate-800/90 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden shadow-sm">
+              <div class="p-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+                <h3 class="font-bold text-slate-800 dark:text-white"><i class="fas fa-list-check text-rose-500 mr-2"></i>Daftar Pengaduan</h3>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left whitespace-nowrap">
+                  <thead class="bg-slate-100 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 text-sm">
+                    <tr><th class="py-3 px-4">Tanggal & ID</th><th class="py-3 px-4">Barang</th><th class="py-3 px-4">Pelapor</th><th class="py-3 px-4">Status</th><th class="py-3 px-4 text-center">Aksi</th></tr>
+                  </thead>
+                  <tbody id="pengaduan-body" class="text-sm divide-y divide-slate-100 dark:divide-slate-700">
+                    <tr><td colspan="5" class="py-8 text-center text-slate-500">Belum ada data.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="bg-white/90 dark:bg-slate-800/90 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden shadow-sm">
+              <div class="p-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+                <h3 class="font-bold text-slate-800 dark:text-white"><i class="fas fa-list-check text-blue-500 mr-2"></i>Daftar Pengajuan</h3>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left whitespace-nowrap">
+                  <thead class="bg-slate-100 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 text-sm">
+                    <tr><th class="py-3 px-4">Tanggal & ID</th><th class="py-3 px-4">Barang</th><th class="py-3 px-4">Pemohon</th><th class="py-3 px-4">Status</th><th class="py-3 px-4 text-center">Aksi</th></tr>
+                  </thead>
+                  <tbody id="pengajuan-body" class="text-sm divide-y divide-slate-100 dark:divide-slate-700">
+                    <tr><td colspan="5" class="py-8 text-center text-slate-500">Belum ada data.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- REKAP DATA -->
         <section id="view-rekap" class="view-section">
           <div class="mb-6 border-b border-slate-200 dark:border-slate-700 pb-4 flex flex-col md:flex-row justify-end items-start md:items-center gap-4 mt-2">
@@ -668,6 +801,9 @@
       <button type="button" onclick="navTo('pinjam')" class="nav-btn w-full py-3 text-slate-400 dark:text-slate-500 transition-all" data-target="pinjam">
         <div class="flex flex-col items-center gap-1"><i class="fas fa-handshake text-xl"></i><span class="text-[10px] font-medium leading-none">Pinjam</span></div>
       </button>
+      <button type="button" onclick="navTo('layanan')" class="nav-btn w-full py-3 text-slate-400 dark:text-slate-500 transition-all" data-target="layanan">
+        <div class="flex flex-col items-center gap-1"><i class="fas fa-headset text-xl"></i><span class="text-[10px] font-medium leading-none">Layanan</span></div>
+      </button>
       <button type="button" onclick="navTo('rekap')" class="nav-btn w-full py-3 text-slate-400 dark:text-slate-500 transition-all" data-target="rekap">
         <div class="flex flex-col items-center gap-1"><i class="fas fa-clipboard-list text-xl"></i><span class="text-[10px] font-medium leading-none">Rekap</span></div>
       </button>
@@ -693,7 +829,8 @@
     var dashboardChart = null; var trendChart = null;
     var tableData = []; var currentFilteredData = [];
     var pinjamData = []; 
-    var hasFetchedRekap = false; var hasFetchedPinjam = false;
+    var pengaduanData = []; var pengajuanData = [];
+    var hasFetchedRekap = false; var hasFetchedPinjam = false; var hasFetchedLayanan = false;
     var rekapCurrentPage = 1; var rekapItemsPerPage = 10;
     var cachedDashboardData = null; var html5QrCode = null; 
     var appConfigData = { kategori: [], lokasi: [], emailNotif: "" }; 
@@ -806,6 +943,11 @@
       if(!t||!tm) return; tm.innerText=msg; t.classList.remove('opacity-0', 'pointer-events-none'); t.classList.add('opacity-100', 'translate-y-4');
       setTimeout(()=> { t.classList.remove('opacity-100', 'translate-y-4'); t.classList.add('opacity-0', 'pointer-events-none'); }, 3000);
     }
+    function esc(v) {
+      return String(v == null ? "" : v).replace(/[&<>"']/g, function(m) {
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[m];
+      });
+    }
 
     function navTo(targetId) {
       document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -839,6 +981,7 @@
       if(targetId === 'dashboard') loadDashboard();
       if(targetId === 'rekap') loadRekap(false);
       if(targetId === 'pinjam') loadPinjam(false); 
+      if(targetId === 'layanan') loadLayanan(false);
     }
 
     function openModal(title, desc, type, defaultVal, confirmCb) {
@@ -893,12 +1036,21 @@
             // Pre-load peminjaman
             gasRequest('getListPeminjaman').then(d => { pinjamData = d; hasFetchedPinjam = true; renderPinjamTable(); }).catch(e=>{});
 
+            // Pre-load layanan pengaduan/pengajuan
+            gasRequest('getLayananData').then(d => {
+              pengaduanData = (d && d.pengaduan) ? d.pengaduan : [];
+              pengajuanData = (d && d.pengajuan) ? d.pengajuan : [];
+              hasFetchedLayanan = true;
+              renderLayananTables();
+              renderLayananFormOptions();
+            }).catch(e=>{});
+
         } else { showToast("Password Salah!"); }
     };
     
     function logout() {
-        currentUser = { id: "", nama: "Admin", role: "Admin", foto: "" }; cachedDashboardData = null; tableData = []; pinjamData = []; currentFilteredData = [];
-        hasFetchedRekap = false; hasFetchedPinjam = false;
+        currentUser = { id: "", nama: "Admin", role: "Admin", foto: "" }; cachedDashboardData = null; tableData = []; pinjamData = []; pengaduanData = []; pengajuanData = []; currentFilteredData = [];
+        hasFetchedRekap = false; hasFetchedPinjam = false; hasFetchedLayanan = false;
         document.getElementById('login-password').value = '';
         var ls = document.getElementById('login-screen'), ma = document.getElementById('main-app');
         if(ma) { ma.classList.remove('flex'); ma.classList.add('hidden'); ma.style.display = 'none'; }
@@ -1145,10 +1297,10 @@
     function loadRekap(force = false) {
       if (!force && hasFetchedRekap) { 
          currentFilteredData=tableData; rekapCurrentPage=1; filterTable(); 
-         gasRequest('getInventoryList').then(d=>{tableData=d; generateDashboardFromTableData(d); if(document.getElementById('search-rekap').value==='')filterTable();}).catch(e=>{}); 
+         gasRequest('getInventoryList').then(d=>{tableData=d; generateDashboardFromTableData(d); renderLayananFormOptions(); if(document.getElementById('search-rekap').value==='')filterTable();}).catch(e=>{}); 
          return; 
       }
-      showLoader("Memuat data..."); gasRequest('getInventoryList').then(d=>{hideLoader();tableData=d;currentFilteredData=d;hasFetchedRekap=true;rekapCurrentPage=1;generateDashboardFromTableData(d);filterTable();}).catch(e=>{hideLoader();showToast(e.message);});
+      showLoader("Memuat data..."); gasRequest('getInventoryList').then(d=>{hideLoader();tableData=d;currentFilteredData=d;hasFetchedRekap=true;rekapCurrentPage=1;generateDashboardFromTableData(d);renderLayananFormOptions();filterTable();}).catch(e=>{hideLoader();showToast(e.message);});
     }
     
     function filterTable() {
@@ -1313,6 +1465,214 @@
         });
     };
 
+    // LAYANAN: PENGADUAN BARANG RUSAK & PENGAJUAN BARANG BARU
+    function renderLayananFormOptions() {
+      try {
+        let selBarang = document.getElementById('pengaduan-idbarang');
+        if (selBarang) {
+          let h = '';
+          if (!tableData || tableData.length === 0) {
+            h = '<option value="">Data barang belum termuat</option>';
+          } else {
+            tableData.forEach(i => {
+              h += `<option value="${esc(i['ID Barang'])}" data-nama="${esc(i['Nama Barang'])}" data-lokasi="${esc(i['Lokasi'])}" data-jumlah="${esc(i['Jumlah'])}">${esc(i['ID Barang'])} - ${esc(i['Nama Barang'])} | ${esc(i['Lokasi'])}</option>`;
+            });
+          }
+          selBarang.innerHTML = h;
+          updatePengaduanBarangInfo();
+        }
+
+        let selKat = document.getElementById('pengajuan-kategori');
+        if (selKat) {
+          let cats = (appConfigData && appConfigData.kategori && appConfigData.kategori.length) ? appConfigData.kategori : ["Lainnya"];
+          selKat.innerHTML = cats.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+        }
+
+        let selLok = document.getElementById('pengajuan-lokasi');
+        if (selLok) {
+          let loks = (appConfigData && appConfigData.lokasi && appConfigData.lokasi.length) ? appConfigData.lokasi : ["-"];
+          selLok.innerHTML = loks.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+        }
+      } catch(e) {}
+    }
+
+    window.updatePengaduanBarangInfo = function() {
+      let sel = document.getElementById('pengaduan-idbarang');
+      let info = document.getElementById('pengaduan-barang-info');
+      if (!sel || !info || sel.selectedIndex < 0) return;
+      let opt = sel.options[sel.selectedIndex];
+      if (!opt || !opt.value) {
+        info.innerText = "Data barang belum tersedia.";
+        return;
+      }
+      let nama = opt.getAttribute('data-nama') || "-";
+      let lokasi = opt.getAttribute('data-lokasi') || "-";
+      let jumlah = opt.getAttribute('data-jumlah') || "0";
+      info.innerText = `${nama} • Lokasi: ${lokasi} • Stok tercatat: ${jumlah}`;
+      let jml = document.getElementById('pengaduan-jumlah');
+      if (jml) jml.max = parseInt(jumlah) || "";
+    };
+
+    function loadLayanan(force = false) {
+      if ((!tableData || tableData.length === 0) && !hasFetchedRekap) {
+        gasRequest('getInventoryList').then(d => {
+          tableData = d || [];
+          currentFilteredData = tableData;
+          hasFetchedRekap = true;
+          generateDashboardFromTableData(tableData);
+          renderLayananFormOptions();
+        }).catch(e => {});
+      }
+      renderLayananFormOptions();
+      if (hasFetchedLayanan && !force) {
+        renderLayananTables();
+        return;
+      }
+      showLoader("Memuat layanan...");
+      gasRequest('getLayananData').then(res => {
+        hideLoader();
+        pengaduanData = (res && res.pengaduan) ? res.pengaduan : [];
+        pengajuanData = (res && res.pengajuan) ? res.pengajuan : [];
+        hasFetchedLayanan = true;
+        renderLayananTables();
+      }).catch(e => {
+        hideLoader();
+        showToast(e.message || "Gagal memuat layanan.");
+      });
+    }
+
+    function statusBadgeClass(status) {
+      let s = (status || "").toLowerCase();
+      if (s.includes("selesai") || s.includes("disetujui")) return "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400";
+      if (s.includes("tolak") || s.includes("ditolak")) return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
+      if (s.includes("proses") || s.includes("tinjau")) return "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400";
+      return "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400";
+    }
+
+    function renderLayananTables() {
+      renderPengaduanTable();
+      renderPengajuanTable();
+    }
+
+    function renderPengaduanTable() {
+      let tb = document.getElementById('pengaduan-body');
+      if (!tb) return;
+      if (!pengaduanData || pengaduanData.length === 0) {
+        tb.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-slate-500">Belum ada pengaduan barang rusak.</td></tr>';
+        return;
+      }
+      let h = '';
+      pengaduanData.forEach(p => {
+        let status = p['Status'] || 'Masuk';
+        let isClosed = ['Selesai','Ditolak'].includes(status);
+        let foto = p['Link Foto'] ? `<a href="${esc(p['Link Foto'])}" target="_blank" class="text-xs text-blue-600 hover:underline">Foto</a>` : '';
+        let aksi = isClosed ? `<span class="text-xs text-slate-500">${esc(p['Tindak Lanjut'] || '-')}</span>` : `<div class="flex flex-wrap justify-center gap-1">
+          <button type="button" onclick="updatePengaduanStatus('${esc(p['ID Pengaduan'])}','Diproses')" class="px-2 py-1 bg-blue-600 text-white rounded text-xs">Proses</button>
+          <button type="button" onclick="updatePengaduanStatus('${esc(p['ID Pengaduan'])}','Selesai')" class="px-2 py-1 bg-emerald-600 text-white rounded text-xs">Selesai</button>
+          <button type="button" onclick="updatePengaduanStatus('${esc(p['ID Pengaduan'])}','Ditolak')" class="px-2 py-1 bg-red-600 text-white rounded text-xs">Tolak</button>
+        </div>`;
+        h += `<tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+          <td class="py-3 px-4">${esc(p['Tanggal'])}<br><span class="text-xs font-mono text-slate-500">${esc(p['ID Pengaduan'])}</span></td>
+          <td class="py-3 px-4"><span class="font-semibold">${esc(p['Nama Barang'])}</span><br><span class="text-xs text-slate-500">${esc(p['ID Barang'])} • ${esc(p['Lokasi'])} • ${esc(p['Jumlah Rusak'])} rusak</span><br><span class="text-xs text-rose-600">${esc(p['Prioritas'])}</span> ${foto}</td>
+          <td class="py-3 px-4">${esc(p['Pelapor'])}<br><span class="text-xs text-slate-500">${esc(p['Uraian Kerusakan'])}</span></td>
+          <td class="py-3 px-4"><span class="px-2 py-1 rounded-full text-xs font-bold ${statusBadgeClass(status)}">${esc(status)}</span></td>
+          <td class="py-3 px-4 text-center">${aksi}</td>
+        </tr>`;
+      });
+      tb.innerHTML = h;
+    }
+
+    function renderPengajuanTable() {
+      let tb = document.getElementById('pengajuan-body');
+      if (!tb) return;
+      if (!pengajuanData || pengajuanData.length === 0) {
+        tb.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-slate-500">Belum ada pengajuan barang baru.</td></tr>';
+        return;
+      }
+      let h = '';
+      pengajuanData.forEach(p => {
+        let status = p['Status'] || 'Diajukan';
+        let isClosed = ['Disetujui','Ditolak'].includes(status);
+        let estimasi = parseInt(p['Estimasi Biaya'] || 0).toLocaleString('id-ID');
+        let aksi = isClosed ? `<span class="text-xs text-slate-500">${esc(p['Catatan'] || '-')}</span>` : `<div class="flex flex-wrap justify-center gap-1">
+          <button type="button" onclick="updatePengajuanStatus('${esc(p['ID Pengajuan'])}','Ditinjau')" class="px-2 py-1 bg-blue-600 text-white rounded text-xs">Tinjau</button>
+          <button type="button" onclick="updatePengajuanStatus('${esc(p['ID Pengajuan'])}','Disetujui')" class="px-2 py-1 bg-emerald-600 text-white rounded text-xs">Setujui</button>
+          <button type="button" onclick="updatePengajuanStatus('${esc(p['ID Pengajuan'])}','Ditolak')" class="px-2 py-1 bg-red-600 text-white rounded text-xs">Tolak</button>
+        </div>`;
+        h += `<tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+          <td class="py-3 px-4">${esc(p['Tanggal'])}<br><span class="text-xs font-mono text-slate-500">${esc(p['ID Pengajuan'])}</span></td>
+          <td class="py-3 px-4"><span class="font-semibold">${esc(p['Nama Barang'])}</span><br><span class="text-xs text-slate-500">${esc(p['Kategori'])} • ${esc(p['Jumlah'])} • ${esc(p['Lokasi Kebutuhan'])}</span><br><span class="text-xs text-blue-600">${esc(p['Urgensi'])} • Rp ${estimasi}</span></td>
+          <td class="py-3 px-4">${esc(p['Pemohon'])}<br><span class="text-xs text-slate-500">${esc(p['Alasan/Keterangan'])}</span></td>
+          <td class="py-3 px-4"><span class="px-2 py-1 rounded-full text-xs font-bold ${statusBadgeClass(status)}">${esc(status)}</span></td>
+          <td class="py-3 px-4 text-center">${aksi}</td>
+        </tr>`;
+      });
+      tb.innerHTML = h;
+    }
+
+    window.doPengaduanRusak = function() {
+      let sel = document.getElementById('pengaduan-idbarang');
+      if (!sel || sel.selectedIndex < 0 || !sel.value) return showToast("Pilih barang dulu.");
+      let opt = sel.options[sel.selectedIndex];
+      let payload = {
+        pelapor: document.getElementById('pengaduan-pelapor').value.trim(),
+        idBarang: sel.value,
+        namaBarang: opt.getAttribute('data-nama') || '',
+        lokasi: opt.getAttribute('data-lokasi') || '',
+        jumlahRusak: document.getElementById('pengaduan-jumlah').value,
+        prioritas: document.getElementById('pengaduan-prioritas').value,
+        uraian: document.getElementById('pengaduan-uraian').value.trim(),
+        user: currentUser.nama
+      };
+      let fileInput = document.getElementById('pengaduan-foto');
+      let send = function(extra) {
+        showLoader("Mengirim pengaduan...");
+        gasRequest('submitPengaduanRusak', Object.assign(payload, extra || {})).then(r => {
+          hideLoader(); showToast(r); document.getElementById('form-pengaduan').reset(); renderLayananFormOptions(); loadLayanan(true);
+        }).catch(e => { hideLoader(); showToast(e.message); });
+      };
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        if (fileInput.files[0].size > 5*1024*1024) return showToast("Foto maksimal 5MB.");
+        compressAndConvertImage(fileInput.files[0]).then(img => send({ fotoBase64: img.base64, fotoMimeType: img.mimeType, fotoName: img.name })).catch(()=>send({}));
+      } else send({});
+    };
+
+    window.doPengajuanBarangBaru = function() {
+      let payload = {
+        pemohon: document.getElementById('pengajuan-pemohon').value.trim(),
+        namaBarang: document.getElementById('pengajuan-nama').value.trim(),
+        kategori: document.getElementById('pengajuan-kategori').value,
+        jumlah: document.getElementById('pengajuan-jumlah').value.trim(),
+        lokasi: document.getElementById('pengajuan-lokasi').value,
+        urgensi: document.getElementById('pengajuan-urgensi').value,
+        estimasiBiaya: document.getElementById('pengajuan-estimasi').value,
+        alasan: document.getElementById('pengajuan-alasan').value.trim(),
+        user: currentUser.nama
+      };
+      showLoader("Mengirim pengajuan...");
+      gasRequest('submitPengajuanBarangBaru', payload).then(r => {
+        hideLoader(); showToast(r); document.getElementById('form-pengajuan').reset(); renderLayananFormOptions(); loadLayanan(true);
+      }).catch(e => { hideLoader(); showToast(e.message); });
+    };
+
+    window.updatePengaduanStatus = function(id, status) {
+      openModal("Update Status", `Ubah status pengaduan menjadi ${status}?`, "input", "", catatan => {
+        showLoader("Update status...");
+        gasRequest('updateStatusPengaduan', { idPengaduan: id, status: status, catatan: catatan, user: currentUser.nama }).then(r => { hideLoader(); showToast(r); loadLayanan(true); }).catch(e => { hideLoader(); showToast(e.message); });
+      });
+      document.getElementById('modal-desc').innerText = `Isi catatan/tindak lanjut untuk status: ${status}`;
+      document.getElementById('modal-input').placeholder = "Contoh: sudah diperbaiki / menunggu teknisi...";
+    };
+
+    window.updatePengajuanStatus = function(id, status) {
+      openModal("Update Status", `Ubah status pengajuan menjadi ${status}?`, "input", "", catatan => {
+        showLoader("Update status...");
+        gasRequest('updateStatusPengajuan', { idPengajuan: id, status: status, catatan: catatan, user: currentUser.nama }).then(r => { hideLoader(); showToast(r); loadLayanan(true); }).catch(e => { hideLoader(); showToast(e.message); });
+      });
+      document.getElementById('modal-desc').innerText = `Isi catatan untuk status: ${status}`;
+      document.getElementById('modal-input').placeholder = "Contoh: disetujui pembelian bulan ini / belum prioritas...";
+    };
+
     // DETAIL MODAL (Termasuk Riwayat)
     function showDetailModal(id) {
       let item = tableData.find(i => i['ID Barang'] === id); if(!item) return;
@@ -1429,6 +1789,7 @@
         let st=document.getElementById('select-'+t); if(st&&appConfigData[t]){let h='';appConfigData[t].forEach(v=>h+=`<option value="${v}">${v}</option>`);st.innerHTML=h;}
       });
       if(appConfigData.emailNotif !== undefined) document.getElementById('config-email-notif').value = appConfigData.emailNotif;
+      renderLayananFormOptions();
     }
     window.saveEmailConfig = function() {
        let em = document.getElementById('config-email-notif').value; showLoader();
