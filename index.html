@@ -974,6 +974,10 @@
     }
 
     function navTo(targetId) {
+      if (targetId === 'config' && (!currentUser || currentUser.role !== 'Super Admin')) {
+        showToast("Menu Setting hanya untuk Super Admin.");
+        targetId = 'dashboard';
+      }
       document.querySelectorAll('.nav-btn').forEach(btn => {
         var isTarget = btn.getAttribute('data-target') === targetId;
         if(btn.getAttribute('data-target') === 'cek' && window.innerWidth < 768) {
@@ -1034,6 +1038,14 @@
         [document.getElementById('header-user-photo'), document.getElementById('header-user-photo-mobile'), document.getElementById('config-profile-photo')].forEach(i => { if(i) { i.onerror = function(){this.src=offlineSvgPlaceholder;}; i.src=pUrl; }});
     }
 
+    function applyRoleAccessUI() {
+        var isSuper = currentUser && currentUser.role === 'Super Admin';
+        document.querySelectorAll('.super-admin-only').forEach(e => e.style.display = isSuper ? '' : 'none');
+        [document.getElementById('sidebar-config-btn'), document.getElementById('header-config-btn')].forEach(btn => {
+          if (btn) btn.style.display = isSuper ? '' : 'none';
+        });
+    }
+
     // LOGIN & INITIAL LOAD (OPTIMIZATION)
     window.doLogin = function() {
       var pass = document.getElementById('login-password').value; if(!pass) return showToast("Password kosong!");
@@ -1044,7 +1056,7 @@
     window.processLoginSuccess = function(res) {
         if(res && res.valid) {
             currentUser = { id: res.id, nama: res.nama, role: res.role, foto: res.foto }; updateProfileUI();
-            document.querySelectorAll('.super-admin-only').forEach(e => e.style.display = (res.role === 'Super Admin') ? '' : 'none');
+            applyRoleAccessUI();
             if(res.role === 'Super Admin') loadAdminList();
             
             var ls = document.getElementById('login-screen'), ma = document.getElementById('main-app');
